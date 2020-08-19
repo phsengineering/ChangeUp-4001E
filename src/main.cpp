@@ -21,26 +21,16 @@ void competition_initialize() {}
 
 void autonomous() {}
 
-
-void drive(int y, int r)
-{
-    //Scale up y and r from 127 to 12000
-    y *= 11000.0 / 127.0;
-    r *= 11000.0 / 127.0; //double check math
-
-    driveLF.move_voltage(y + r);
-    driveLB.move_voltage(y + r);
-    driveRF.move_voltage(y - r);
-    driveRB.move_voltage(y - r);
-}
-
 void opcontrol() {
 	pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
-
+printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
 			goDistancePID(27);
+		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
+			turnDrive(20);
+			//turnAnglePID(90);
 		}
 
 

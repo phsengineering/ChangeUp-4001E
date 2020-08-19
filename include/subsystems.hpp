@@ -4,7 +4,9 @@
 using namespace pros;
 
 void goDistancePID(double inches);
+void turnAnglePID(double angle);
 void drive(int y, int r);
+void turnDrive(int y);
 
 
 

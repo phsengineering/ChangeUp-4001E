@@ -85,13 +85,13 @@ void goDistancePID(double inches) {
 
 				printf("   position: %lf", currentValue);
 				printf("   target: %lf\n", TARGET);
-
     }
-
+		printf("\033[1;32m[PID OPERATION COMPLETE] - \033[0m");
+		printf("\033[1;33mThis PID Loop has opefully gone: \033[0m");
+		printf(" %lf", inches);
+		printf(" inches\n");
     driveLF.move_velocity(0);
     driveRF.move_velocity(0);
     driveLB.move_velocity(0);
     driveRB.move_velocity(0);
-
-
 }
