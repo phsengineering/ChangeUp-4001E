@@ -6,35 +6,46 @@ using namespace pros;
 
 void goDistancePID(double inches) {
 
-		double distance = (0.563 + inches) / 5.93;
+		printf("\033[1;32m[PID DRIVE STARTING] - \033[0m");
+		printf("\033[1;36mAttempting to Go: \033[0m");
+		printf(" %lf", inches);
+		printf(" inches\n");
+
+		bool displayValues = true;
+		bool driveMotors = true;
+
+		double distance = (-0.1 + inches) / 5.89;
 
 		driveLF.tare_position();
     driveRF.tare_position();
     driveLB.tare_position();
     driveRB.tare_position();
 
-    double TARGET = driveLF.get_position() + distance;
-    double HALFWAY = driveLF.get_position() + distance / 4;
+		double fronts = (driveLF.get_position() + driveRF.get_position()) / 2;
+		double backs = (driveLB.get_position() + driveRB.get_position()) / 2;
 
-    double currentValue = driveLF.get_position();
+		double alls = (fronts + backs) / 2;
+
+    double TARGET = driveLB.get_position() + distance;
+    double HALFWAY = driveLB.get_position() + distance / 4;
+
+    double currentValue = driveLB.get_position();
     double currentError = TARGET - currentValue;
     double previousError = 0;
-
-		printf("Current Value: %lf\n", currentValue);
-		printf("Current Error: %lf\n", currentError);
 
     bool accel = true;
 
     double kP  =  2;
-    double kI  =  0.000;
-    double kD  =  10.000;
+    double kI  =  0.00;
+    double kD  =  0.000;
 
-		double acceptableError = 0.05;
+		double acceptableError = 0.015;
 
-    double maxRate = 90;
+    double maxRate = 50;
 
-    while(fabs(currentError) > acceptableError) {
-			printf("currentError: %lf", currentError);
+
+    while(fabs(currentError) > acceptableError || fabs(previousError) > acceptableError) {
+
         if(distance > 0 && currentValue > HALFWAY)
             accel = false;
         else if(distance < 0 && currentValue < HALFWAY)
@@ -52,24 +63,18 @@ void goDistancePID(double inches) {
             else
                 command = -maxRate;
         }
-				printf("   command: %lf", command);
 
-				double changingCommand = 0;
-
-				if (fabs(command) < 1) {
-					changingCommand = 1;
-					printf("   ChangingCommand?: %lf", changingCommand);
-
-					if (command > 0) {
-						drive(15,0);
-					} else {
-						drive(-15,0);
+				if (driveMotors == true) {
+					if (fabs(command) < 1) {
+						if (command > 0) {
+							drive(12,0);
+						} else {
+							drive(-12,0);
+						}
+						pros::delay(20);
+					} else{
+						drive(command*15, 0);
 					}
-					pros::delay(20);
-				} else{
-					drive(command*20, 0);
-					changingCommand = 0;
-					printf("   ChangingCommand?: %lf", changingCommand);
 				}
 
         pros::delay(5);
@@ -79,15 +84,22 @@ void goDistancePID(double inches) {
             maxRate += 10;
         }
 
-        currentValue = driveLF.get_position();
+				fronts = (driveLF.get_position() + driveRF.get_position()) / 2;
+				backs = (driveLB.get_position() + driveRB.get_position()) / 2;
+				alls = (fronts + backs) / 2;
+
+        currentValue = alls;
         previousError = currentError;
         currentError = TARGET - currentValue;
-
-				printf("   position: %lf", currentValue);
-				printf("   target: %lf\n", TARGET);
+				if (displayValues == true) {
+					printf("Current Error: %lf", currentError);
+					printf("   Motor Command: %lf", command);
+					printf("   Position: %lf", currentValue);
+					printf("   Target: %lf\n", TARGET);
+				}
     }
-		printf("\033[1;32m[PID OPERATION COMPLETE] - \033[0m");
-		printf("\033[1;33mThis PID Loop has opefully gone: \033[0m");
+		printf("\033[1;32m[PID DRIVE COMPLETE] - \033[0m");
+		printf("\033[1;33mThis PID Loop has hopefully gone: \033[0m");
 		printf(" %lf", inches);
 		printf(" inches\n");
     driveLF.move_velocity(0);

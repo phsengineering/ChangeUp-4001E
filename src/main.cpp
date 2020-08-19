@@ -24,13 +24,14 @@ void autonomous() {}
 void opcontrol() {
 	pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
+
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-			goDistancePID(27);
+			goDistancePID(35);
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
-			turnDrive(20);
-			//turnAnglePID(90);
+			printf("\033[1;34mTurning?\033[0m\n");
+			turnAnglePID(1.15);
 		}
 
 
