@@ -37,16 +37,11 @@ void drive(int y, int r)
 void opcontrol() {
 	pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
-	goDistancePID(27); // GO 10 INCHES
-
-
-
-
-
-
-
-/*
 	while(true) {
+
+		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
+			goDistancePID(27);
+		}
 
 
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
@@ -59,5 +54,5 @@ void opcontrol() {
 		//	printf("Motor Position: %lf\n", driveLF.get_position());
 
 		}
-		*/
+
 }

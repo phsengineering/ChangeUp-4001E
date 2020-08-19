@@ -25,7 +25,7 @@ void goDistancePID(double inches) {
 
     bool accel = true;
 
-    double kP  =  2.5;
+    double kP  =  2;
     double kI  =  0.000;
     double kD  =  10.000;
 
@@ -61,9 +61,9 @@ void goDistancePID(double inches) {
 					printf("   ChangingCommand?: %lf", changingCommand);
 
 					if (command > 0) {
-						drive(22,0);
+						drive(15,0);
 					} else {
-						drive(-22,0);
+						drive(-15,0);
 					}
 					pros::delay(20);
 				} else{
