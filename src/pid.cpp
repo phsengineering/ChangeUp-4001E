@@ -1,3 +1,9 @@
+#include "main.h"
+#include "subsystems.hpp"
+#include <stdio.h>
+
+using namespace pros;
+
 void goDistancePID(double inches) {
 
 		double distance = (0.563 + inches) / 5.93;
@@ -19,9 +25,9 @@ void goDistancePID(double inches) {
 
     bool accel = true;
 
-    double kP  =  2;
+    double kP  =  2.5;
     double kI  =  0.000;
-    double kD  =  15.000;
+    double kD  =  10.000;
 
 		double acceptableError = 0.05;
 
@@ -48,7 +54,11 @@ void goDistancePID(double inches) {
         }
 				printf("   command: %lf", command);
 
+				double changingCommand = 0;
+
 				if (fabs(command) < 1) {
+					changingCommand = 1;
+					printf("   ChangingCommand?: %lf", changingCommand);
 
 					if (command > 0) {
 						drive(22,0);
@@ -58,9 +68,11 @@ void goDistancePID(double inches) {
 					pros::delay(20);
 				} else{
 					drive(command*20, 0);
+					changingCommand = 0;
+					printf("   ChangingCommand?: %lf", changingCommand);
 				}
 
-        pros::delay(20);
+        pros::delay(5);
 
         if(accel) {
             if(maxRate < 120)
