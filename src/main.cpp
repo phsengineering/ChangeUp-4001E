@@ -51,112 +51,14 @@ void drive(int y, int r)
     driveRB.move_voltage(y - r);
 }
 
-void goDistance(double distance) {
-	double ticksPerRevolution = 1.7;
-	double wheelDiameter = 3.25;
-
-	double wheelCircumference = wheelDiameter * M_PI;
-	double revolutionsNeeded = distance / wheelCircumference;
-
-		while (driveLF.get_position() <= (ticksPerRevolution * revolutionsNeeded)) {
-			drive(25, 0);
-			printf("Motor Position: %lf\n", driveLF.get_position());
-		}
-
-		while(driveLF.get_position() > (ticksPerRevolution * revolutionsNeeded)) {
-			drive(-25, 0);
-			printf("Motor Position: %lf\n", driveLF.get_position());
-		}
-		drive(0,0);
-}
-
-void goDistancePID(double distance) {
-		driveLF.tare_position();
-    driveRF.tare_position();
-    driveLB.tare_position();
-    driveRB.tare_position();
-
-    double TARGET = driveLF.get_position() + distance;
-    double HALFWAY = driveLF.get_position() + distance / 4;
-
-    double currentValue = driveLF.get_position();
-    double currentError = TARGET - currentValue;
-    double previousError = 0;
-
-		printf("Current Value: %lf\n", currentValue);
-		printf("Current Error: %lf\n", currentError);
-
-    bool accel = true;
-
-    double kP  =  3.000;
-    double kI  =  0.000;
-    double kD  =  12.000;
-
-		double acceptableError = 0.05;
-
-    double maxRate = 90;
-
-    while(fabs(currentError) > acceptableError) {
-			printf("currentError: %lf", currentError);
-        if(distance > 0 && currentValue > HALFWAY)
-            accel = false;
-        else if(distance < 0 && currentValue < HALFWAY)
-            accel = false;
-
-        double p  = kP * currentError;
-        double i  = kI;
-        double d  = kD * (currentError - previousError);
-
-        double command = p + i + d;
-
-        if(fabs(command) > maxRate) {
-            if(command > 0)
-                command = maxRate;
-            else
-                command = -maxRate;
-        }
-				printf("   command: %lf", command);
-
-				if (fabs(command) < 1) {
-
-					if (command > 0) {
-						drive(15,0);
-					} else {
-						drive(-15,0);
-					}
-					pros::delay(20);
-				} else{
-					drive(command*20, 0);
-				}
-
-        pros::delay(20);
-
-        if(accel) {
-            if(maxRate < 120)
-            maxRate += 10;
-        }
-
-        currentValue = driveLF.get_position();
-        previousError = currentError;
-        currentError = TARGET - currentValue;
-
-				printf("   position: %lf", currentValue);
-				printf("   target: %lf\n", TARGET);
-
-    }
-
-    driveLF.move_velocity(0);
-    driveRF.move_velocity(0);
-    driveLB.move_velocity(0);
-    driveRB.move_velocity(0);
-
-
-}
-
 void opcontrol() {
 	pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
-	goDistancePID(1);
+	goDistancePID(27); // GO 10 INCHES
+
+
+
+
 
 
 
