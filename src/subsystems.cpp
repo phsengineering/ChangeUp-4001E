@@ -25,3 +25,19 @@ void turnDrive(int y)
     driveRF.move_voltage(-y*4);
     driveRB.move_voltage(-y);
 }
+
+
+void autonDrive(double y, double max)
+{
+  ///double max = 7000;
+  y *= 11000.0 / 127.0;
+  if (y > max) {
+    y = max;
+  }
+
+    driveLF.move_voltage(y);
+    driveLB.move_voltage(y);
+    driveRF.move_voltage(y);
+    driveRB.move_voltage(y);
+
+}

@@ -28,7 +28,7 @@ printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-			goDistancePID(35);
+			goDistancePID(20, 7000);
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
 			printf("\033[1;34mTurning?\033[0m\n");
 			turnAnglePID(1.15);

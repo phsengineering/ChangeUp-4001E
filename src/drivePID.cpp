@@ -4,7 +4,7 @@
 
 using namespace pros;
 
-void goDistancePID(double inches) {
+void goDistancePID(double inches, double speed) {
 
 		printf("\033[1;32m[PID DRIVE STARTING] - \033[0m");
 		printf("\033[1;36mAttempting to Go: \033[0m");
@@ -14,7 +14,8 @@ void goDistancePID(double inches) {
 		bool displayValues = true;
 		bool driveMotors = true;
 
-		double distance = (-0.1 + inches) / 5.89;
+		double distance2 = (0.25 + inches) / 1.03;
+		double distance = (-0.125 + distance2) / 5.89;
 
 		driveLF.tare_position();
     driveRF.tare_position();
@@ -35,13 +36,15 @@ void goDistancePID(double inches) {
 
     bool accel = true;
 
-    double kP  =  2;
-    double kI  =  0.00;
-    double kD  =  0.000;
+    double kP  =  2.3;
+    double kI  =  0;
+    double kD  =  20.000;
 
 		double acceptableError = 0.015;
 
-    double maxRate = 50;
+    double maxRate = 35;
+
+		double countOscilations = 0;
 
 
     while(fabs(currentError) > acceptableError || fabs(previousError) > acceptableError) {
@@ -67,13 +70,13 @@ void goDistancePID(double inches) {
 				if (driveMotors == true) {
 					if (fabs(command) < 1) {
 						if (command > 0) {
-							drive(12,0);
+							autonDrive(20, speed);
 						} else {
-							drive(-12,0);
+							autonDrive(-20, speed);
 						}
-						pros::delay(20);
+						pros::delay(5);
 					} else{
-						drive(command*15, 0);
+						autonDrive(command*15, speed);
 					}
 				}
 
