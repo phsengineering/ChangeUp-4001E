@@ -36,15 +36,17 @@ void goDistancePID(double inches, double speed) {
 
     bool accel = true;
 
-    double kP  =  2.3;
+    double kP  =  2.5; //2.3
     double kI  =  0;
-    double kD  =  20.000;
+    double kD  =  12.000;
 
-		double acceptableError = 0.015;
+		double acceptableError = 0.02;
 
     double maxRate = 35;
 
 		double countOscilations = 0;
+
+		double timer = 0;
 
 
     while(fabs(currentError) > acceptableError || fabs(previousError) > acceptableError) {
@@ -95,11 +97,22 @@ void goDistancePID(double inches, double speed) {
         previousError = currentError;
         currentError = TARGET - currentValue;
 				if (displayValues == true) {
+
 					printf("Current Error: %lf", currentError);
 					printf("   Motor Command: %lf", command);
 					printf("   Position: %lf", currentValue);
 					printf("   Target: %lf\n", TARGET);
+
+					/* // for .csv file
+					printf("%lf", timer);
+					printf(",%lf", currentError);
+					printf(",%lf", command);
+					printf(",%lf", currentValue);
+					printf(",%lf\n", TARGET);
+					*/
 				}
+				timer++;
+
     }
 		printf("\033[1;32m[PID DRIVE COMPLETE] - \033[0m");
 		printf("\033[1;33mThis PID Loop has hopefully gone: \033[0m");
@@ -109,4 +122,5 @@ void goDistancePID(double inches, double speed) {
     driveRF.move_velocity(0);
     driveLB.move_velocity(0);
     driveRB.move_velocity(0);
+		timer = 0;
 }

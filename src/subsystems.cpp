@@ -34,6 +34,9 @@ void autonDrive(double y, double max)
   if (y > max) {
     y = max;
   }
+  if (y < 0 && y < -fabs(max)){
+    y = -max;
+  }
 
     driveLF.move_voltage(y);
     driveLB.move_voltage(y);
