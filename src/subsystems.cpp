@@ -16,13 +16,13 @@ void drive(int y, int r)
     driveRB.move_voltage(y - r);
 }
 
-void turnDrive(int y)
+void turnDrive(double y)
 {
     y *= 11000.0 / 127.0;
 
-    driveLF.move_voltage(y*4);
+    driveLF.move_voltage(y);
     driveLB.move_voltage(y);
-    driveRF.move_voltage(-y*4);
+    driveRF.move_voltage(-y);
     driveRB.move_voltage(-y);
 }
 

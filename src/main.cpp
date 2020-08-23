@@ -24,7 +24,6 @@ void autonomous() {}
 void opcontrol() {
 	pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
-
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
@@ -33,8 +32,30 @@ printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
 				goDistancePID(-35, 20000);
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
 			printf("\033[1;34mTurning?\033[0m\n");
-			turnAnglePID(1.15);
+
+			int thisDelay = 250;
+		  double turnAmount = (1.28*2);
+
+			turnAnglePID(90);
+/*
+			goDistancePID(20, 20000);
+			pros::delay(thisDelay);
+			turnAnglePID(turnAmount);
+			pros::delay(thisDelay);
+			goDistancePID(20, 20000);
+			pros::delay(thisDelay);
+			turnAnglePID(turnAmount);
+			pros::delay(thisDelay);
+			goDistancePID(20, 20000);
+			pros::delay(thisDelay);
+			turnAnglePID(turnAmount);
+			pros::delay(thisDelay);
+			goDistancePID(20, 20000);
+			pros::delay(thisDelay);
+			turnAnglePID(turnAmount);
+			*/
 		}
+
 
 
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
@@ -43,9 +64,7 @@ printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
 			{
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
-			drive(analogY, analogX); // actual drive with these paramaters
-		//	printf("Motor Position: %lf\n", driveLF.get_position());
-
+			drive(analogY, analogX);
 		}
 
 }

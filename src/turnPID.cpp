@@ -4,12 +4,14 @@
 
 using namespace pros;
 
-void turnAnglePID(double angle) {
+void turnAnglePID(double degreeInput) {
 
 		printf("\033[1;32m[PID TURN STARTING] - \033[0m");
 		printf("\033[1;36mAttempting to Turn: \033[0m");
-		printf(" %lf", angle);
+		printf(" %lf", degreeInput);
 		printf(" degrees\n");
+
+		double angle = degreeInput*0.014 + 0.02;
 
 		bool displayValues = true;
 		bool driveMotors = true;
@@ -19,21 +21,23 @@ void turnAnglePID(double angle) {
     driveLB.tare_position();
     driveRB.tare_position();
 
-    double TARGET = driveLF.get_position() + angle;
-    double HALFWAY = driveLF.get_position() + angle / 4;
+    double TARGET = ((fabs(driveLF.get_position()) + fabs(driveRF.get_position())) / 2) + angle;
+    double HALFWAY = ((fabs(driveLF.get_position()) + fabs(driveRF.get_position())) / 2) + angle / 4;
 
-    double currentValue = driveLF.get_position();
+    double currentValue = (fabs(driveLF.get_position()) + fabs(driveRF.get_position())) / 2;
     double currentError = TARGET - currentValue;
     double previousError = 0;
 
     bool accel = true;
 
-    double kP  =  10;
-    double kI  =  0.000;
-    double kD  =  0.000;
+    double kP  =  0.1;  //100
+    double kI  =  0.0004;
+    double kD  =  0.0000; //20
 
-		double acceptableError = 0.05;
+		double acceptableError = 0; // how close the encoder values have to be to the desired amount to stop the while loop
+		double maxNumberOfCorrections = 20; // max number of small corrections allowed to make at the end of turn
 
+		double correctionAmount = 0;
     double maxRate = 90;
 
     while(fabs(currentError) > acceptableError) {
@@ -58,17 +62,22 @@ void turnAnglePID(double angle) {
 				double changingCommand = 0;
 
 				if (driveMotors == true) {
-					if (fabs(command) < 1) {
-						if (command > 0) {
-							turnDrive(25);
-						} else {
-							turnDrive(-25);
-						}
-						pros::delay(20);
-					} else{
-						turnDrive(command*20);
+						if (fabs(command) < 0.001) {
+							if (correctionAmount < maxNumberOfCorrections) {
+								if (command > 0) {
+									turnDrive(25);
+								} else {
+									turnDrive(-25);
+								}
+								pros::delay(10);
+						  	correctionAmount++;
+							} else {
+								break;
+							}
+						} else{
+						turnDrive(command*4000);
 						changingCommand = 0;
-					}
+						}
 				}
 
         pros::delay(5);
@@ -78,7 +87,7 @@ void turnAnglePID(double angle) {
             maxRate += 10;
         }
 
-        currentValue = driveLF.get_position();
+        currentValue = (fabs(driveLF.get_position()) + fabs(driveRF.get_position())) / 2;
         previousError = currentError;
         currentError = TARGET - currentValue;
 
@@ -89,7 +98,7 @@ void turnAnglePID(double angle) {
 					printf("   target: %lf\n", TARGET);
 				}
     }
-
+		correctionAmount = 0;
 		printf("\033[1;32m[PID TURN COMPLETE] - \033[0m");
 		printf("\033[1;33mThis PID Loop has hopefully turned: \033[0m");
 		printf(" %lf", angle);
