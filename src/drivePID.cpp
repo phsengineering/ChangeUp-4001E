@@ -36,11 +36,12 @@ void goDistancePID(double inches, double speed) {
 
     bool accel = true;
 
-    double kP  =  2.5; //2.3
+    double kP  =  2.5;
     double kI  =  0;
     double kD  =  12.000;
 
 		double acceptableError = 0.02;
+		double speedCorrection = 1;
 
     double maxRate = 35;
 
@@ -72,17 +73,14 @@ void goDistancePID(double inches, double speed) {
 				if (driveMotors == true) {
 					if (fabs(command) < 1) {
 						if (command > 0) {
-							autonDrive(20, speed);
+							autonDrive(18, speed);
 						} else {
-							autonDrive(-20, speed);
+							autonDrive(-18, speed);
 						}
-						pros::delay(5);
 					} else{
-						autonDrive(command*15, speed);
+						autonDrive(command*15*speedCorrection, speed);
 					}
 				}
-
-        pros::delay(5);
 
         if(accel) {
             if(maxRate < 120)
@@ -97,21 +95,23 @@ void goDistancePID(double inches, double speed) {
         previousError = currentError;
         currentError = TARGET - currentValue;
 				if (displayValues == true) {
-
+/*
 					printf("Current Error: %lf", currentError);
 					printf("   Motor Command: %lf", command);
 					printf("   Position: %lf", currentValue);
 					printf("   Target: %lf\n", TARGET);
-
-					/* // for .csv file
+*/
+					 // for .csv file
 					printf("%lf", timer);
-					printf(",%lf", currentError);
-					printf(",%lf", command);
-					printf(",%lf", currentValue);
-					printf(",%lf\n", TARGET);
-					*/
+					//printf(",%lf", currentError);
+					//printf(",%lf", command);
+					printf(",%lf\n", currentValue);
+					delay(10);
+					//printf(",%lf\n", TARGET);
+
 				}
 				timer++;
+
 
     }
 		printf("\033[1;32m[PID DRIVE COMPLETE] - \033[0m");

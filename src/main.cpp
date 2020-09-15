@@ -4,15 +4,11 @@
 
 using namespace pros;
 
-Motor driveRF(1, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveRB(2, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLF(3, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLB(4, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-
+pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	init();
+	mainController.set_text(0, 0, "4001E");
 }
 
 void disabled() {}
@@ -22,39 +18,27 @@ void competition_initialize() {}
 void autonomous() {}
 
 void opcontrol() {
-	pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
-printf("\033[1;34m[Welcome to Team 4001E]\033[0m\n");
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				goDistancePID(35, 20000);
+				goDistancePID(35, 5000);
 				pros::delay(1000);
-				goDistancePID(-35, 20000);
+				goDistancePID(-35, 5000);
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
-			printf("\033[1;34mTurning?\033[0m\n");
 
-			int thisDelay = 250;
-		  double turnAmount = (1.28*2);
+			while(true) {
 
-			turnAnglePID(90);
-/*
-			goDistancePID(20, 20000);
-			pros::delay(thisDelay);
-			turnAnglePID(turnAmount);
-			pros::delay(thisDelay);
-			goDistancePID(20, 20000);
-			pros::delay(thisDelay);
-			turnAnglePID(turnAmount);
-			pros::delay(thisDelay);
-			goDistancePID(20, 20000);
-			pros::delay(thisDelay);
-			turnAnglePID(turnAmount);
-			pros::delay(thisDelay);
-			goDistancePID(20, 20000);
-			pros::delay(thisDelay);
-			turnAnglePID(turnAmount);
-			*/
-		}
+				//	mainController.rumble(". -");
+				/*
+				double leftCurrent = driveLF.get_position();
+				double rightCurrent = driveRF.get_position();
+
+				printf("left: %lf", leftCurrent);
+				printf("   right: %lf\n", rightCurrent);
+*/
+				delay(100);
+
+		}}
 
 
 

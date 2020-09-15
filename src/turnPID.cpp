@@ -16,7 +16,6 @@ void turnAnglePID(double degreeInput) {
 		bool displayValues = true;
 		bool driveMotors = true;
 
-
 		driveLF.tare_position();
     driveRF.tare_position();
     driveLB.tare_position();
@@ -31,11 +30,11 @@ void turnAnglePID(double degreeInput) {
 
     bool accel = true;
 
-    double kP  =  0.1;  //100
+    double kP  =  0.085;  //100
     double kI  =  0.0004;
     double kD  =  0.0000; //20
 
-		double acceptableError = 0; // how close the encoder values have to be to the desired amount to stop the while loop
+		double acceptableError = 0.001; // how close the encoder values have to be to the desired amount to stop the while loop
 		double maxNumberOfCorrections = 20; // max number of small corrections allowed to make at the end of turn
 
 		double correctionAmount = 0;
@@ -66,9 +65,9 @@ void turnAnglePID(double degreeInput) {
 						if (fabs(command) < 0.001) {
 							if (correctionAmount < maxNumberOfCorrections) {
 								if (command > 0) {
-									turnDrive(25);
+									turnDrive(30);
 								} else {
-									turnDrive(-25);
+									turnDrive(-30);
 								}
 								pros::delay(10);
 						  	correctionAmount++;
@@ -108,4 +107,55 @@ void turnAnglePID(double degreeInput) {
     driveRF.move_velocity(0);
     driveLB.move_velocity(0);
     driveRB.move_velocity(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void curveTurn(double degreeInput) {
+
+while(true) {
+	double leftCurrent = driveLF.get_position();
+	double rightCurrent = driveRF.get_position();
+
+//	mainController.set_text(0, 0, "hello");
+
+	printf("left: %lf", leftCurrent);
+	printf("   right: %lf\n", rightCurrent);
+
+	delay(100);
+}
+
+
+
 }
