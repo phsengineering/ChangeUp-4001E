@@ -67,6 +67,33 @@ void autonDrive(double y, double max)
 }
 
 
+void leftDrive(double y, double max) {
+  y *= 11000.0 / 127.0;
+  if (y > max) {
+    y = max;
+  }
+  if (y < 0 && y < -fabs(max)){
+    y = -max;
+  }
+
+    driveLF.move_voltage(y);
+    driveLB.move_voltage(y);
+}
+
+void rightDrive(double y, double max) {
+  y *= 11000.0 / 127.0;
+  if (y > max) {
+    y = max;
+  }
+  if (y < 0 && y < -fabs(max)){
+    y = -max;
+  }
+
+    driveRF.move_voltage(y);
+    driveRB.move_voltage(y);
+}
+
+
 
 
 

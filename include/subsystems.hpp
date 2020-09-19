@@ -12,8 +12,9 @@ void driveVelLeft(double speed);
 void driveVelRight(double speed);
 void curveTurn(double degreeInput);
 void init();
-
-
+void curve();
+void rightDrive(double y, double max);
+void leftDrive(double y, double max);
 
 extern Motor driveRF;
 extern Motor driveRB;

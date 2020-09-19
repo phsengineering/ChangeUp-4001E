@@ -25,20 +25,8 @@ void opcontrol() {
 				pros::delay(1000);
 				goDistancePID(-35, 5000);
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
-
-			while(true) {
-
-				//	mainController.rumble(". -");
-				/*
-				double leftCurrent = driveLF.get_position();
-				double rightCurrent = driveRF.get_position();
-
-				printf("left: %lf", leftCurrent);
-				printf("   right: %lf\n", rightCurrent);
-*/
-				delay(100);
-
-		}}
+				curve();
+		}
 
 
 
