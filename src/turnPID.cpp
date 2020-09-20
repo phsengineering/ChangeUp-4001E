@@ -75,7 +75,7 @@ void turnAnglePID(double degreeInput) {
 								break;
 							}
 						} else{
-						turnDrive(command*4000);
+							turnDrive(command*10000);
 						changingCommand = 0;
 						}
 				}

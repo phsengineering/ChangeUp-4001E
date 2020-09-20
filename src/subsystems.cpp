@@ -12,6 +12,14 @@ Motor driveLF(3, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveLB(4, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 
+void leftTPS(double tickDistance) {
+  double current = (driveLB.get_position() + driveLF.get_position()) / 2;
+}
+
+void rightTPS(double tickDistance) {
+
+}
+
 void drive(int y, int r)
 {
     //Scale up y and r from 127 to 12000

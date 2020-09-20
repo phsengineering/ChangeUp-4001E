@@ -5,8 +5,8 @@
 using namespace pros;
 
 
-double leftDistance = 8.75;
-double rightDistance = 1;
+double leftDistance = 8;
+double rightDistance = 2;
 
 double leftTarget, rightTarget;
 double leftHalfway, rightHalfway;
@@ -80,7 +80,8 @@ void curve() {
             leftDrive(-40, speed);
           }
         } else{
-          leftDrive(leftCommand*15*speedCorrection, speed);
+          leftDrive(40, speed);
+          //leftDrive(leftCommand*15*speedCorrection, speed);
         }
       }
 
@@ -123,7 +124,8 @@ void curve() {
             rightDrive(-40, speed);
           }
         } else{
-          rightDrive(rightCommand*15*speedCorrection, speed);
+          rightDrive(40, speed);
+          //rightDrive(rightCommand*15*speedCorrection, speed);
         }
       }
 
