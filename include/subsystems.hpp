@@ -15,6 +15,7 @@ void init();
 void curve();
 void rightDrive(double y, double max);
 void leftDrive(double y, double max);
+void testingEncoders();
 
 extern Motor driveRF;
 extern Motor driveRB;
