@@ -16,6 +16,7 @@ void curve();
 void rightDrive(double y, double max);
 void leftDrive(double y, double max);
 void testingEncoders();
+void showcasePID(double inches, double speed);
 
 extern Motor driveRF;
 extern Motor driveRB;

@@ -23,11 +23,9 @@ void opcontrol() {
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				goDistancePID(24, 20000); //35 inches, 5000 speed
+				goDistancePID(24, 10000); //24 inches, 20000 speed
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
-			while(true) {
-				testingEncoders();
-			}
+			showcasePID(0,0);
 		}
 
 

@@ -4,11 +4,12 @@
 
 using namespace pros;
 
-pros::ADIEncoder encoder ('C', 'D', true);
+void showcasePID(double inches, double speed) {
 
-void goDistancePID(double inches, double speed) {
+    inches = 0;
+    speed = 20000;
 
-		printf("\033[1;32m[PID DRIVE STARTING] - \033[0m");
+		printf("\033[1;32m[PID SHOWCASE STARTING] - \033[0m");
 		printf("\033[1;36mAttempting to Go: \033[0m");
 		printf(" %lf", inches);
 		printf(" inches\n");
@@ -24,8 +25,6 @@ void goDistancePID(double inches, double speed) {
     driveLB.tare_position();
     driveRB.tare_position();
 
-		double encoderStart = encoder.get_value();
-
 		double fronts = (driveLF.get_position() + driveRF.get_position()) / 2;
 		double backs = (driveLB.get_position() + driveRB.get_position()) / 2;
 
@@ -40,11 +39,11 @@ void goDistancePID(double inches, double speed) {
 
     bool accel = true;
 
-    double kP  =  2.5;
+    double kP  =  4;
     double kI  =  0;
     double kD  =  12.000;
 
-		double acceptableError = 0.02;
+		double acceptableError = 0.0;
 		double speedCorrection = 1;
 
     double maxRate = 35;
@@ -54,7 +53,7 @@ void goDistancePID(double inches, double speed) {
 		double timer = 0;
 
 
-    while(fabs(currentError) > acceptableError || fabs(previousError) > acceptableError) {
+    while(true) {
 
         if(distance > 0 && currentValue > HALFWAY)
             accel = false;
@@ -95,38 +94,21 @@ void goDistancePID(double inches, double speed) {
 				backs = (driveLB.get_position() + driveRB.get_position()) / 2;
 				alls = (fronts + backs) / 2;
 
-				double test = encoder.get_value() - encoderStart;
-
         currentValue = alls;
         previousError = currentError;
         currentError = TARGET - currentValue;
 				if (displayValues == true) {
-/*
+
 					printf("Current Error: %lf", currentError);
 					printf("   Motor Command: %lf", command);
 					printf("   Position: %lf", currentValue);
 					printf("   Target: %lf\n", TARGET);
-*/
-					 // for .csv file
-					printf("%lf", timer);
-					//printf(",%lf", currentError);
-					//printf(",%lf", command);
-					printf(",%lf\n", test);
-					delay(10);
-					//printf(",%lf\n", TARGET);
+
+          delay(10);
 
 				}
 				timer++;
 
 
     }
-		printf("\033[1;32m[PID DRIVE COMPLETE] - \033[0m");
-		printf("\033[1;33mThis PID Loop has hopefully gone: \033[0m");
-		printf(" %lf", inches);
-		printf(" inches\n");
-    driveLF.move_velocity(0);
-    driveRF.move_velocity(0);
-    driveLB.move_velocity(0);
-    driveRB.move_velocity(0);
-		timer = 0;
 }
