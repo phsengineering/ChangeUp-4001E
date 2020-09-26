@@ -8,6 +8,5 @@ using namespace pros;
 #define QUAD_BOTTOM_PORT 'D'
 
 void testingEncoders() {
-
   delay(100);
 }

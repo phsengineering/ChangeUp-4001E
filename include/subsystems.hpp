@@ -8,6 +8,7 @@ void turnAnglePID(double degreeInput);
 void drive(int y, int r);
 void turnDrive(double y);
 void autonDrive(double y, double max);
+void autonDriveVary(double lefts, double rights, double max);
 void driveVelLeft(double speed);
 void driveVelRight(double speed);
 void curveTurn(double degreeInput);

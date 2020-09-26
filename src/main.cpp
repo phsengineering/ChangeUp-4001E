@@ -23,7 +23,7 @@ void opcontrol() {
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				goDistancePID(24, 10000); //24 inches, 20000 speed
+				goDistancePID(48, 7000); //24 inches, 20000 speed
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
 			showcasePID(0,0);
 		}
@@ -38,5 +38,5 @@ void opcontrol() {
 			}
 			drive(analogY, analogX);
 		}
-
+		delay(2);
 }

@@ -4,7 +4,9 @@
 
 using namespace pros;
 
-pros::ADIEncoder encoder ('C', 'D', true);
+pros::ADIEncoder middleEncoder ('C', 'D', true);
+pros::ADIEncoder leftEncoder ('A', 'B', false);
+pros::ADIEncoder rightEncoder ('E', 'F', true);
 
 void goDistancePID(double inches, double speed) {
 
@@ -24,12 +26,14 @@ void goDistancePID(double inches, double speed) {
     driveLB.tare_position();
     driveRB.tare_position();
 
-		double encoderStart = encoder.get_value();
+		double encoderStart = middleEncoder.get_value();
+		double leftEncoderStart = leftEncoder.get_value();
+		double rightEncoderStart = rightEncoder.get_value();
 
-		double fronts = (driveLF.get_position() + driveRF.get_position()) / 2;
-		double backs = (driveLB.get_position() + driveRB.get_position()) / 2;
+		double lefts = (driveLF.get_position() + driveLB.get_position()) / 2;
+		double rights = (driveRF.get_position() + driveRB.get_position()) / 2;
 
-		double alls = (fronts + backs) / 2;
+		double alls = (lefts + rights) / 2;
 
     double TARGET = driveLB.get_position() + distance;
     double HALFWAY = driveLB.get_position() + distance / 4;
@@ -82,38 +86,45 @@ void goDistancePID(double inches, double speed) {
 							autonDrive(-18, speed);
 						}
 					} else{
-						autonDrive(command*15*speedCorrection, speed);
+							double realCommand = command * 15 * speedCorrection;
+							if (lefts < rights) {
+								autonDriveVary(realCommand*4, realCommand, speed); // if they are the same if this ever even happens lol
+							} else if (lefts > rights) {
+								autonDriveVary(realCommand, realCommand*4, speed); // if they are the same if this ever even happens lol
+							} else {
+								autonDriveVary(realCommand, realCommand, speed); // if they are the same if this ever even happens lol
+							}
+						}
 					}
-				}
 
         if(accel) {
             if(maxRate < 120)
             maxRate += 10;
         }
 
-				fronts = (driveLF.get_position() + driveRF.get_position()) / 2;
-				backs = (driveLB.get_position() + driveRB.get_position()) / 2;
-				alls = (fronts + backs) / 2;
+				lefts = (driveLF.get_position() + driveLB.get_position()) / 2;
+				rights = (driveRF.get_position() + driveRB.get_position()) / 2;
+				alls = (lefts + rights) / 2;
 
-				double test = encoder.get_value() - encoderStart;
+				double test = middleEncoder.get_value() - encoderStart;
+				double leftEncoderPos = leftEncoder.get_value();
+				double rightEncoderPos = rightEncoder.get_value();
 
         currentValue = alls;
         previousError = currentError;
         currentError = TARGET - currentValue;
 				if (displayValues == true) {
-/*
+					/*
 					printf("Current Error: %lf", currentError);
 					printf("   Motor Command: %lf", command);
 					printf("   Position: %lf", currentValue);
 					printf("   Target: %lf\n", TARGET);
-*/
+					*/
 					 // for .csv file
 					printf("%lf", timer);
-					//printf(",%lf", currentError);
-					//printf(",%lf", command);
-					printf(",%lf\n", test);
+					printf(",%lf", lefts);
+					printf(",%lf\n", rights);
 					delay(10);
-					//printf(",%lf\n", TARGET);
 
 				}
 				timer++;

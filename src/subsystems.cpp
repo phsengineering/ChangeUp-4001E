@@ -4,8 +4,6 @@
 
 using namespace pros;
 
-
-
 Motor driveRF(1, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveRB(2, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveLF(3, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
@@ -71,6 +69,34 @@ void autonDrive(double y, double max)
     driveLB.move_voltage(y);
     driveRF.move_voltage(y);
     driveRB.move_voltage(y);
+
+}
+
+
+void autonDriveVary(double left, double right, double max)
+{
+  ///double max = 7000;
+  left *= 11000.0 / 127.0;
+  if (left > max) {
+    left = max;
+  }
+  if (left < 0 && left < -fabs(max)){
+    left = -max;
+  }
+
+
+  right *= 11000.0 / 127.0;
+  if (right > max) {
+    right = max;
+  }
+  if (right < 0 && right < -fabs(max)){
+    right = -max;
+  }
+
+    driveLF.move_voltage(left);
+    driveLB.move_voltage(left);
+    driveRF.move_voltage(right);
+    driveRB.move_voltage(right);
 
 }
 
