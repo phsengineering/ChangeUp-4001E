@@ -42,16 +42,12 @@ void goDistancePID(double inches, double speed) {
     double currentError = TARGET - currentValue;
     double previousError = 0;
 
-    bool accel = true;
-
-    double kP  =  2.5;
+    double kP  =  2.2;
     double kI  =  0;
     double kD  =  12.000;
 
 		double acceptableError = 0.02;
 		double speedCorrection = 1;
-
-    double maxRate = 35;
 
 		double countOscilations = 0;
 
@@ -60,47 +56,28 @@ void goDistancePID(double inches, double speed) {
 
     while(fabs(currentError) > acceptableError || fabs(previousError) > acceptableError) {
 
-        if(distance > 0 && currentValue > HALFWAY)
-            accel = false;
-        else if(distance < 0 && currentValue < HALFWAY)
-            accel = false;
-
         double p  = kP * currentError;
         double i  = kI;
         double d  = kD * (currentError - previousError);
 
         double command = p + i + d;
 
-        if(fabs(command) > maxRate) {
-            if(command > 0)
-                command = maxRate;
-            else
-                command = -maxRate;
-        }
-
 				if (driveMotors == true) {
 					if (fabs(command) < 1) {
 						if (command > 0) {
-							autonDrive(18, speed);
+							//autonDrive(18, speed);
+								autonDriveVary(18/10, 18, speed); // if they are the same if this ever even happens
 						} else {
-							autonDrive(-18, speed);
+							//autonDrive(-18, speed);
+								autonDriveVary(-18/10, -18, speed); // if they are the same if this ever even happens
 						}
 					} else{
 							double realCommand = command * 15 * speedCorrection;
-							if (lefts < rights) {
-								autonDriveVary(realCommand*4, realCommand, speed); // if they are the same if this ever even happens lol
-							} else if (lefts > rights) {
-								autonDriveVary(realCommand, realCommand*4, speed); // if they are the same if this ever even happens lol
-							} else {
-								autonDriveVary(realCommand, realCommand, speed); // if they are the same if this ever even happens lol
-							}
+							printf("\033[1;32m22222222222222 - \n\033[0m");
+							autonDriveVary(realCommand*10, realCommand, speed); // if they are the same if this ever even happens
 						}
 					}
 
-        if(accel) {
-            if(maxRate < 120)
-            maxRate += 10;
-        }
 
 				lefts = (driveLF.get_position() + driveLB.get_position()) / 2;
 				rights = (driveRF.get_position() + driveRB.get_position()) / 2;
@@ -114,30 +91,19 @@ void goDistancePID(double inches, double speed) {
         previousError = currentError;
         currentError = TARGET - currentValue;
 				if (displayValues == true) {
-					/*
-					printf("Current Error: %lf", currentError);
-					printf("   Motor Command: %lf", command);
-					printf("   Position: %lf", currentValue);
-					printf("   Target: %lf\n", TARGET);
-					*/
-					 // for .csv file
 					printf("%lf", timer);
 					printf(",%lf", lefts);
 					printf(",%lf\n", rights);
 					delay(10);
-
 				}
-				timer++;
 
+				timer++;
 
     }
 		printf("\033[1;32m[PID DRIVE COMPLETE] - \033[0m");
 		printf("\033[1;33mThis PID Loop has hopefully gone: \033[0m");
 		printf(" %lf", inches);
 		printf(" inches\n");
-    driveLF.move_velocity(0);
-    driveRF.move_velocity(0);
-    driveLB.move_velocity(0);
-    driveRB.move_velocity(0);
+		stopAllDrive();
 		timer = 0;
 }

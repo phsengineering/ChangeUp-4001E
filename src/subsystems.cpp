@@ -127,6 +127,12 @@ void rightDrive(double y, double max) {
     driveRB.move_voltage(y);
 }
 
+void stopAllDrive() {
+  driveLF.move_velocity(0);
+  driveRF.move_velocity(0);
+  driveLB.move_velocity(0);
+  driveRB.move_velocity(0);
+}
 
 
 
