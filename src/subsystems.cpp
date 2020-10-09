@@ -4,11 +4,12 @@
 
 using namespace pros;
 
-Motor driveRF(1, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRF(6, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveRB(2, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveLF(3, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveLB(4, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
+pros::Imu imu_sensor(10);
 
 void leftTPS(double tickDistance) {
   double current = (driveLB.get_position() + driveLF.get_position()) / 2;
@@ -47,10 +48,12 @@ void turnDrive(double y)
 {
     y *= 11000.0 / 127.0;
 
-    driveLF.move_voltage(y);
-    driveLB.move_voltage(y);
-    driveRF.move_voltage(-y);
-    driveRB.move_voltage(-y);
+    double cor = 2;
+
+    driveLF.move_voltage(y/cor);
+    driveLB.move_voltage(y/cor);
+    driveRF.move_voltage(-y*cor);
+    driveRB.move_voltage(-y*cor);
 }
 
 
@@ -123,8 +126,8 @@ void rightDrive(double y, double max) {
     y = -max;
   }
 
-    driveRF.move_voltage(y);
-    driveRB.move_voltage(y);
+    driveRF.move_voltage(y/1.075);
+    driveRB.move_voltage(y/1.075);
 }
 
 void stopAllDrive() {

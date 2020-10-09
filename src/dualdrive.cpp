@@ -26,15 +26,15 @@ void dualDrive(double inches, double speed) {
   double rightCurrentError = TARGET - rightCurrentValue;
   double rightPreviousError = 0;
 
-  double lkP = 3;
+  double lkP = 2.5;
   double lkI = 0.0;
   double lkD = 12.0;
 
-  double rkP = 3;
+  double rkP = 2.5;
   double rkI = 0.0;
   double rkD = 12.0;
 
-  double acceptableError = 0.01;
+  double acceptableError = 0.04;
   double speedCorrection = 1;
 
   double leftCorrection = 1.0; // increase if veering to left

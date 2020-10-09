@@ -1,4 +1,4 @@
-      #pragma once
+#pragma once
 #include "main.h"
 
 using namespace pros;
@@ -20,8 +20,11 @@ void testingEncoders();
 void showcasePID(double inches, double speed);
 void stopAllDrive();
 void dualDrive(double inches, double speed);
+void imuTurn(double angle);
 
 extern Motor driveRF;
 extern Motor driveRB;
 extern Motor driveLF;
 extern Motor driveLB;
+
+extern Imu imu_sensor;

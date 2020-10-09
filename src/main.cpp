@@ -6,9 +6,21 @@ using namespace pros;
 
 pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
+
 void initialize() {
 	init();
 	mainController.set_text(0, 0, "4001E");
+  imu_sensor.reset();
+
+  int time = pros::millis();
+  int iter = 0;
+  while (imu_sensor.is_calibrating()) {
+    printf("IMU calibrating... %d\n", iter);
+    iter += 10;
+    pros::delay(10);
+  }
+  // should print about 2000 ms
+  printf("IMU is done calibrating (took %d ms)\n", iter - time);
 }
 
 double currentTicks, previousTicks;
@@ -22,9 +34,14 @@ void autonomous() {}
 void opcontrol() {
 	while(true) {
 
+		 //printf("rotation: %f degrees", imu_sensor.get_rotation());
+		 //printf("         heading: %f degrees\n", imu_sensor.get_heading());
+
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				goDistancePID(48, 7000); //24 inches, 20000 speed
+				//goDistancePID(48, 7000); //24 inches, 20000 speed
+				imuTurn(90);
 		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
+			delay(2000);
 				dualDrive(48, 7000);
 		}
 
