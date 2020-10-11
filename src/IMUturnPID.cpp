@@ -29,8 +29,8 @@ void imuTurn(double degreeInput) {
     bool accel = true;
 
     double kP  =  0.005;  //100
-    double kI  =  0.020;
-    double kD  =  0.070; //20
+    double kI  =  0.010;
+    double kD  =  0.050; //20
 
 		double acceptableError = 0.001; // how close the encoder values have to be to the desired amount to stop the while loop
 		double maxNumberOfCorrections = 20; // max number of small corrections allowed to make at the end of turn
@@ -63,9 +63,11 @@ void imuTurn(double degreeInput) {
 						if (fabs(command) < 0.01) {
 							if (correctionAmount < maxNumberOfCorrections) {
 								if (command > 0) {
-									turnDrive(23);
+									turnDrive(15);
+									printf("\033[1;35m[SMALL CORRECTION] - \033[0m");
 								} else {
-									turnDrive(-23);
+									turnDrive(-15);
+									printf("\033[1;35m[SMALL CORRECTION] - \033[0m");
 								}
 								pros::delay(10);
 						  	correctionAmount++;

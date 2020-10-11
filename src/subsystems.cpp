@@ -48,12 +48,12 @@ void turnDrive(double y)
 {
     y *= 11000.0 / 127.0;
 
-    double cor = 2;
+    double cor = 5;
 
     driveLF.move_voltage(y/cor);
     driveLB.move_voltage(y/cor);
-    driveRF.move_voltage(-y*cor);
-    driveRB.move_voltage(-y*cor);
+    driveRF.move_voltage(-y*cor*5);
+    driveRB.move_voltage(-y*cor*5);
 }
 
 
