@@ -1,6 +1,7 @@
 #include "main.h"
 #include "subsystems.hpp"
 #include <stdio.h>
+#include <string>
 
 using namespace pros;
 
@@ -12,14 +13,18 @@ void initialize() {
 	mainController.set_text(0, 0, "4001E");
   imu_sensor.reset();
 
-  int time = pros::millis();
-  int iter = 0;
+  double time = pros::millis();
+  double iter = 0;
+
+	pros::lcd::set_text(2, "IMU calibrating");
+
   while (imu_sensor.is_calibrating()) {
     printf("IMU calibrating... %d\n", iter);
+		std::string s = std::to_string(1.98-(iter/1000));
+		pros::lcd::set_text(3, s);
     iter += 10;
     pros::delay(10);
   }
-  // should print about 2000 ms
   printf("IMU is done calibrating (took %d ms)\n", iter - time);
 }
 
@@ -34,15 +39,30 @@ void autonomous() {}
 void opcontrol() {
 	while(true) {
 
-		 //printf("rotation: %f degrees", imu_sensor.get_rotation());
-		 //printf("         heading: %f degrees\n", imu_sensor.get_heading());
-
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				//goDistancePID(48, 7000); //24 inches, 20000 speed
+				imuTurn(-90);
+		} else if (mainController.get_digital(DIGITAL_L1)) {
 				imuTurn(90);
-		} else if(mainController.get_digital(DIGITAL_R2)){ //mid tower
-			delay(2000);
-				dualDrive(48, 7000);
+		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
+				dualDrive(24, 7000);
+		} else if (mainController.get_digital(DIGITAL_R1)) {
+				double del = 250;
+				double spe = 25000;
+				dualDrive(36, spe);
+				delay(del);
+				imuTurn(-90);
+				delay(del);
+				dualDrive(12, spe);
+				delay(del);
+				imuTurn(-90);
+				delay(del);
+				dualDrive(36, spe);
+				delay(del);
+				imuTurn(-90);
+				delay(del);
+				dualDrive(12, spe);
+				delay(del);
+				imuTurn(-90);
 		}
 
 

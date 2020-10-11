@@ -4,7 +4,7 @@
 
 using namespace pros;
 
-Motor driveRF(6, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRF(8, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveRB(2, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveLF(3, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 Motor driveLB(4, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
@@ -48,7 +48,7 @@ void turnDrive(double y)
 {
     y *= 11000.0 / 127.0;
 
-    double cor = 5;
+    double cor = 1;
 
     driveLF.move_voltage(y/cor);
     driveLB.move_voltage(y/cor);
