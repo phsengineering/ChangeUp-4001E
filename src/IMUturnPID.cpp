@@ -7,10 +7,10 @@ using namespace pros;
 
 void imuTurn(double degreeInput) {
 
-	driveLF.tare_position();
-	driveRF.tare_position();
-	driveLB.tare_position();
-	driveRB.tare_position();
+		driveLF.tare_position();
+		driveRF.tare_position();
+		driveLB.tare_position();
+		driveRB.tare_position();
 
 		printf("\033[1;32m[PID TURN STARTING] - \033[0m");
 		printf("\033[1;36mAttempting to Turn: \033[0m");
