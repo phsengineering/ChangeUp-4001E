@@ -16,17 +16,35 @@ void initialize() {
   double time = pros::millis();
   double iter = 0;
 
-	pros::lcd::set_text(2, "IMU calibrating");
+	//pros::lcd::set_text(2, "IMU calibrating");
 
   while (imu_sensor.is_calibrating()) {
     printf("IMU calibrating... %d\n", iter);
 		std::string s = std::to_string(1.98-(iter/1000));
-		pros::lcd::set_text(3, s);
+		//pros::lcd::set_text(3, s);
     iter += 10;
     pros::delay(10);
   }
   printf("IMU is done calibrating (took %d ms)\n", iter - time);
+
+
+
+
+  pros::lcd::register_btn0_cb(on_center_button);
 }
+
+
+void on_center_button() {
+  static bool pressed = false;
+  pressed = !pressed;
+  if (pressed) {
+    pros::lcd::set_text(2, "I was pressed!");
+  } else {
+    pros::lcd::clear_line(2);
+  }
+}
+
+
 
 double currentTicks, previousTicks;
 
