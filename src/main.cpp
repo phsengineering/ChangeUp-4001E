@@ -7,7 +7,6 @@ using namespace pros;
 
 pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
-//test 
 void initialize() {
 	init();
 	mainController.set_text(0, 0, "4001E");
@@ -16,21 +15,15 @@ void initialize() {
   double time = pros::millis();
   double iter = 0;
 
-	//pros::lcd::set_text(2, "IMU calibrating");
-
   while (imu_sensor.is_calibrating()) {
     printf("IMU calibrating... %d\n", iter);
 		std::string s = std::to_string(1.98-(iter/1000));
-		//pros::lcd::set_text(3, s);
+		pros::lcd::set_text(3, s);
     iter += 10;
     pros::delay(10);
   }
   printf("IMU is done calibrating (took %d ms)\n", iter - time);
 
-
-
-
-  pros::lcd::register_btn0_cb(on_center_button);
 }
 
 
@@ -60,7 +53,7 @@ void opcontrol() {
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
 				imuTurn(-90);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
-				imuTurn(90);
+				showcasePID(0,0);
 		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
 				dualDrive(24, 7000);
 		} else if (mainController.get_digital(DIGITAL_R1)) {
