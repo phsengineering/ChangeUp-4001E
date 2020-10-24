@@ -80,11 +80,12 @@ void opcontrol() {
 			//displayTicks();
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
 			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from left analog stick
+			int rotate = mainController.get_analog(E_CONTROLLER_ANALOG_RIGHT_X); // get X value from right analog stick
 			if(std::abs(analogY) < 16)
 			{
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
-			drive(analogY, analogX);
+			xDriveStrafe(analogY, analogX, rotate);
 		}
 		delay(2);
 }

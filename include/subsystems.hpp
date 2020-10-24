@@ -21,6 +21,7 @@ void showcasePID(double inches, double speed);
 void stopAllDrive();
 void dualDrive(double inches, double speed);
 void imuTurn(double angle);
+void xDriveStrafe(int y, int x, int rot);
 
 extern Motor driveRF;
 extern Motor driveRB;

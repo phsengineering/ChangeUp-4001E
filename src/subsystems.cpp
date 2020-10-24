@@ -4,10 +4,10 @@
 
 using namespace pros;
 
-Motor driveRF(8, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveRB(2, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLF(3, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLB(4, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRB(1, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRF(2, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveLB(3, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveLF(4, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 pros::Imu imu_sensor(10);
 
@@ -18,6 +18,26 @@ void leftTPS(double tickDistance) {
 void rightTPS(double tickDistance) {
 
 }
+
+void xDriveStrafe(int y, int x, int rot) {
+  y *= 11000.0 / 127.0;
+  x *= 11000.0 / 127.0;
+  rot *= 11000.0 / 127.0;
+
+  int LF  =  y + x + rot;
+  int LB  =  y - x + rot;
+  int RF  = -y + x + rot;
+  int RB  = -y - x + rot;
+
+  driveLF.move_voltage(LF);
+  driveLB.move_voltage(LB);
+  driveRF.move_voltage(RF);
+  driveRB.move_voltage(RB);
+}
+
+
+
+
 
 void drive(int y, int r)
 {
