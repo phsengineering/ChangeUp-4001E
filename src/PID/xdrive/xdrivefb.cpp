@@ -22,7 +22,7 @@ void xDriveFB(double distance) {
   double kI  =  0;
   double kD  =  12.0;
 
-	double acceptableError = 0.02;
+	double acceptableError = 0.04;
   double speedCorrection = 1;
 
   bool driveMotors = true;
@@ -58,11 +58,18 @@ void xDriveFB(double distance) {
     previousError = currentError;
     currentError = TARGET - currentValue;
 
-    printf("%lf", timer);
+     pros::c::imu_accel_s_t accel = imu_sensor.get_accel();
+
+    printf("%lf,", timer);
+    printf("%lf,", accel.x);
+    printf("%lf,", accel.y);
+    printf("%lf\n", accel.z);
+/*
     printf(",%lf", driveRF.get_position());
     printf(",%lf", driveRB.get_position());
     printf(",%lf", driveLF.get_position());
     printf(",%lf\n", driveLB.get_position());
+    */
     timer++;
     delay(10);
   }

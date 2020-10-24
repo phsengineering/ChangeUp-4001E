@@ -40,7 +40,7 @@ void xDriveStrafe(int y, int x, int rot) {
 
 void xDriveCorrection(int y, int x, int rot) { // code to make easier for drive (not reccomended for auton)
 
-  
+
 
   y *= 11000.0 / 127.0;
   x *= 11000.0 / 127.0;

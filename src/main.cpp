@@ -10,12 +10,11 @@ pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 void initialize() {
 	init();
 	mainController.set_text(0, 0, "4001E");
-//  imu_sensor.reset();
+  imu_sensor.reset();
 
   double time = pros::millis();
   double iter = 0;
 
-/*
   while (imu_sensor.is_calibrating()) {
     printf("IMU calibrating... %d\n", iter);
 		std::string s = std::to_string(1.98-(iter/1000));
@@ -24,7 +23,7 @@ void initialize() {
     pros::delay(10);
   }
   printf("IMU is done calibrating (took %d ms)\n", iter - time);
-*/
+
 }
 
 
@@ -52,38 +51,29 @@ void opcontrol() {
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				//imuTurn(-90);
-				xDriveFB(15);
-				delay(1000);
-				xDriveLR(15);
-				delay(1000);
-				xDriveFB(-15);
-				delay(1000);
-				xDriveLR(-15);
-				delay(1000);
-				xDriveFB(15);
+				xDriveTurn(90);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
-				//showcasePID(0,0);
+				xDriveTurn(-90);
 		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
-				dualDrive(24, 7000);
+				xDriveFB(20);
 		} else if (mainController.get_digital(DIGITAL_R1)) {
-				double del = 250;
+				double del = 500;
 				double spe = 25000;
-				dualDrive(36, spe);
+				xDriveFB(15);
 				delay(del);
-				imuTurn(-90);
+				xDriveTurn(-90);
 				delay(del);
-				dualDrive(12, spe);
+				xDriveFB(15);
 				delay(del);
-				imuTurn(-90);
+				xDriveTurn(-90);
 				delay(del);
-				dualDrive(36, spe);
+				xDriveFB(15);
 				delay(del);
-				imuTurn(-90);
+				xDriveTurn(-90);
 				delay(del);
-				dualDrive(12, spe);
+				xDriveFB(15);
 				delay(del);
-				imuTurn(-90);
+				xDriveTurn(-90);
 		}
 
 
