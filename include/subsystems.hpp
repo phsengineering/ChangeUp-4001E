@@ -22,6 +22,9 @@ void stopAllDrive();
 void dualDrive(double inches, double speed);
 void imuTurn(double angle);
 void xDriveStrafe(int y, int x, int rot);
+void xDriveFB(double distance);
+void xDriveLR(double distance);
+void tareAll();
 
 extern Motor driveRF;
 extern Motor driveRB;

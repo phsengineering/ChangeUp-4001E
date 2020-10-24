@@ -19,6 +19,8 @@ void rightTPS(double tickDistance) {
 
 }
 
+// X-Drive Code
+
 void xDriveStrafe(int y, int x, int rot) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / 127.0;
@@ -36,6 +38,25 @@ void xDriveStrafe(int y, int x, int rot) {
 }
 
 
+void xDriveCorrection(int y, int x, int rot) { // code to make easier for drive (not reccomended for auton)
+
+  
+
+  y *= 11000.0 / 127.0;
+  x *= 11000.0 / 127.0;
+  rot *= 11000.0 / 127.0;
+
+  int LF  =  y + x + rot;
+  int LB  =  y - x + rot;
+  int RF  = -y + x + rot;
+  int RB  = -y - x + rot;
+
+  driveLF.move_voltage(LF);
+  driveLB.move_voltage(LB);
+  driveRF.move_voltage(RF);
+  driveRB.move_voltage(RB);
+}
+// Old Drive Code
 
 
 
@@ -157,6 +178,12 @@ void stopAllDrive() {
   driveRB.move_velocity(0);
 }
 
+void tareAll() {
+  driveLF.tare_position();
+  driveRF.tare_position();
+  driveLB.tare_position();
+  driveRB.tare_position();
+}
 
 
 

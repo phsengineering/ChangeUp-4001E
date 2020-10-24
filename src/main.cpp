@@ -10,11 +10,12 @@ pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 void initialize() {
 	init();
 	mainController.set_text(0, 0, "4001E");
-  imu_sensor.reset();
+//  imu_sensor.reset();
 
   double time = pros::millis();
   double iter = 0;
 
+/*
   while (imu_sensor.is_calibrating()) {
     printf("IMU calibrating... %d\n", iter);
 		std::string s = std::to_string(1.98-(iter/1000));
@@ -23,7 +24,7 @@ void initialize() {
     pros::delay(10);
   }
   printf("IMU is done calibrating (took %d ms)\n", iter - time);
-
+*/
 }
 
 
@@ -51,9 +52,18 @@ void opcontrol() {
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				imuTurn(-90);
+				//imuTurn(-90);
+				xDriveFB(15);
+				delay(1000);
+				xDriveLR(15);
+				delay(1000);
+				xDriveFB(-15);
+				delay(1000);
+				xDriveLR(-15);
+				delay(1000);
+				xDriveFB(15);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
-				showcasePID(0,0);
+				//showcasePID(0,0);
 		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
 				dualDrive(24, 7000);
 		} else if (mainController.get_digital(DIGITAL_R1)) {
@@ -79,8 +89,8 @@ void opcontrol() {
 
 			//displayTicks();
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
-			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from left analog stick
-			int rotate = mainController.get_analog(E_CONTROLLER_ANALOG_RIGHT_X); // get X value from right analog stick
+			int rotate = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from left analog stick
+			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_RIGHT_X); // get X value from right analog stick
 			if(std::abs(analogY) < 16)
 			{
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
