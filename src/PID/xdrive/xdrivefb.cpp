@@ -18,7 +18,7 @@ void xDriveFB(double distance) {
   double currentError = TARGET - currentValue;
   double previousError = 0;
 
-  double kP  =  2.3;
+  double kP  =  2.5; //2.3
   double kI  =  0;
   double kD  =  12.0;
 
@@ -45,9 +45,9 @@ void xDriveFB(double distance) {
 						}
 				} else {
               if (command*18 < 50) {
-				        xDriveStrafe(command * 18, 0, 0);
+				        xDriveStrafe(command * 20, 0, 0);
               } else {
-                xDriveStrafe(50, 0, 0);
+                xDriveStrafe(40, 0, 0);
               }
 				   }
 			}

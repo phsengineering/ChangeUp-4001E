@@ -50,6 +50,9 @@ void autonomous() {}
 void opcontrol() {
 	while(true) {
 
+		 printf("%lf,", imu_sensor.get_rotation());
+		 printf("%lf\n", imu_sensor.get_heading());
+
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
 				xDriveTurn(90);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
@@ -57,7 +60,7 @@ void opcontrol() {
 		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
 				xDriveFB(20);
 		} else if (mainController.get_digital(DIGITAL_R1)) {
-				double del = 500;
+				double del = 650;
 				double spe = 25000;
 				xDriveFB(15);
 				delay(del);

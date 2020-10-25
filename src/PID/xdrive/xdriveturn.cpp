@@ -28,8 +28,7 @@ void xDriveTurn(double degreeInput) {
 		bool displayValues = true;
 		bool driveMotors = true;
 
-    double TARGET = imu_sensor.get_rotation() + angle;
-    double HALFWAY = imu_sensor.get_rotation() + angle / 4;
+    double TARGET = (imu_sensor.get_rotation()) + angle;
 
     double currentValue = imu_sensor.get_rotation();
     double currentError = TARGET - currentValue;
@@ -38,14 +37,18 @@ void xDriveTurn(double degreeInput) {
     bool accel = true;
 
     double kP  =  0.01;  //100
-    double kI  =  0.0001;
+    double kI  =  0.035;
     double kD  =  0.01; //20
 
 		double acceptableError = 0.000000; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 30; // max number of small corrections allowed to make at the end of turn
+		double maxNumberOfCorrections = 50; // max number of small corrections allowed to make at the end of turn
 
 		double correctionAmount = 0;
     double maxRate = 90;
+
+		double commandOffset = 750;
+		double commandMax = 40;
+		double commandSmallCorrection = 8;
 
     while(fabs(currentError) > acceptableError) {
 
@@ -59,9 +62,9 @@ void xDriveTurn(double degreeInput) {
 						if (fabs(command) < 0.01) {
 							if (correctionAmount < maxNumberOfCorrections) {
 								if (command > 0) {
-									xDriveStrafe(0,0,8);
+									xDriveStrafe(0,0,commandSmallCorrection);
 								} else {
-									xDriveStrafe(0,0,-8);
+									xDriveStrafe(0,0,-commandSmallCorrection);
 								}
 						  	correctionAmount++;
 							} else {
@@ -70,16 +73,16 @@ void xDriveTurn(double degreeInput) {
               printf("\033[1;31m[SMALL CORRECTION] \033[0m");
 						} else{
                 if (command < 0) {
-                  if (fabs(command*750) > 50) {
-                    xDriveStrafe(0,0,-40);
+                  if (fabs(command*commandOffset) > commandMax) {
+                    xDriveStrafe(0,0,-commandMax);
                   } else {
-                      xDriveStrafe(0,0,command*750);
+                      xDriveStrafe(0,0,command*commandOffset);
                   }
                 } else {
-                  if (command*750 > 50) {
-                    xDriveStrafe(0,0,40);
+                  if (command*commandOffset > commandMax) {
+                    xDriveStrafe(0,0,commandMax);
                   } else {
-                    xDriveStrafe(0,0,command*750);
+                    xDriveStrafe(0,0,command*commandOffset);
                   }
              }
 						}
