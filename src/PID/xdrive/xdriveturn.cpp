@@ -37,12 +37,12 @@ void xDriveTurn(double degreeInput) {
 
     bool accel = true;
 
-    double kP  =  0.0022;  //100
-    double kI  =  0.0057;
-    double kD  =  0.020; //20
+    double kP  =  0.01;  //100
+    double kI  =  0.0001;
+    double kD  =  0.01; //20
 
-		double acceptableError = 0.0005; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 100; // max number of small corrections allowed to make at the end of turn
+		double acceptableError = 0.000000; // how close the encoder values have to be to the desired amount to stop the while loop
+		double maxNumberOfCorrections = 30; // max number of small corrections allowed to make at the end of turn
 
 		double correctionAmount = 0;
     double maxRate = 90;
@@ -63,11 +63,11 @@ void xDriveTurn(double degreeInput) {
 								} else {
 									xDriveStrafe(0,0,-8);
 								}
-								pros::delay(10);
 						  	correctionAmount++;
 							} else {
-								break;
+                break;
 							}
+              printf("\033[1;31m[SMALL CORRECTION] \033[0m");
 						} else{
                 if (command < 0) {
                   if (fabs(command*750) > 50) {
@@ -85,7 +85,7 @@ void xDriveTurn(double degreeInput) {
 						}
 				}
 
-        pros::delay(5);
+        pros::delay(10);
 
         if(accel) {
             if(maxRate < 120)
