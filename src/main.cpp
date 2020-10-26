@@ -47,11 +47,10 @@ void competition_initialize() {}
 
 void autonomous() {}
 
+int wireless = 0;
+
 void opcontrol() {
 	while(true) {
-
-		 printf("%lf,", imu_sensor.get_rotation());
-		 printf("%lf\n", imu_sensor.get_heading());
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
 				xDriveTurn(90);
@@ -89,6 +88,12 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			xDriveStrafe(analogY, analogX, rotate);
+
+
+						printf("%lf,", imu_sensor.get_rotation());
+					 printf("%lf\n", imu_sensor.get_heading());
+
+					 delay(10);
 		}
-		delay(2);
+
 }
