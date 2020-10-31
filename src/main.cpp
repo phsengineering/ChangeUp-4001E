@@ -61,21 +61,29 @@ void opcontrol() {
 		} else if (mainController.get_digital(DIGITAL_R1)) {
 				double del = 650;
 				double spe = 25000;
-				xDriveFB(15);
+				xDriveFB(43);
+				delay(del);
+				xDriveTurn(90);
+				delay(del);
+				xDriveFB(20);
+				delay(del);
+				xDriveTurn(90);
+				delay(del);
+				xDriveFB(23);
 				delay(del);
 				xDriveTurn(-90);
 				delay(del);
-				xDriveFB(15);
+				xDriveFB(20);
 				delay(del);
-				xDriveTurn(-90);
+				xDriveTurn(90);
 				delay(del);
-				xDriveFB(15);
+				xDriveFB(20);
 				delay(del);
-				xDriveTurn(-90);
+				xDriveTurn(90);
 				delay(del);
-				xDriveFB(15);
+				xDriveFB(43);
 				delay(del);
-				xDriveTurn(-90);
+				xDriveTurn(90);
 		}
 
 
@@ -88,10 +96,14 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			xDriveStrafe(analogY, analogX, rotate);
+			testingEncoders();
+
+					//	printf("%lf,", imu_sensor.get_rotation());
+					// printf("%lf\n", imu_sensor.get_heading());
 
 
-						printf("%lf,", imu_sensor.get_rotation());
-					 printf("%lf\n", imu_sensor.get_heading());
+					//std::string perfect = std::to_string(encoder.get_value());
+
 
 					 delay(10);
 		}

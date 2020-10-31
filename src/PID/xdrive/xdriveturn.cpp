@@ -37,7 +37,7 @@ void xDriveTurn(double degreeInput) {
     bool accel = true;
 
     double kP  =  0.01;  //100
-    double kI  =  0.035;
+    double kI  =  0.039;
     double kD  =  0.01; //20
 
 		double acceptableError = 0.000000; // how close the encoder values have to be to the desired amount to stop the while loop
