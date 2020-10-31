@@ -16,7 +16,7 @@ void init();
 void curve();
 void rightDrive(double y, double max);
 void leftDrive(double y, double max);
-void testingEncoders();
+void odom(bool reset);
 void showcasePID(double inches, double speed);
 void stopAllDrive();
 void dualDrive(double inches, double speed);
@@ -26,6 +26,7 @@ void xDriveFB(double distance);
 void xDriveLR(double distance);
 void tareAll();
 void xDriveTurn(double degreeInput);
+void driveFor(int seconds);
 
 extern Motor driveRF;
 extern Motor driveRB;

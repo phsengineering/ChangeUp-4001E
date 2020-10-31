@@ -57,7 +57,7 @@ void opcontrol() {
 		} else if (mainController.get_digital(DIGITAL_L1)) {
 				xDriveTurn(-90);
 		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
-				xDriveFB(20);
+				driveFor(1500);
 		} else if (mainController.get_digital(DIGITAL_R1)) {
 				double del = 650;
 				double spe = 25000;
@@ -86,6 +86,12 @@ void opcontrol() {
 				xDriveTurn(90);
 		}
 
+		if (mainController.get_digital(DIGITAL_B)) {
+			odom(true);
+		} else {
+			odom(false);
+		}
+
 
 			//displayTicks();
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
@@ -96,7 +102,6 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			xDriveStrafe(analogY, analogX, rotate);
-			testingEncoders();
 
 					//	printf("%lf,", imu_sensor.get_rotation());
 					// printf("%lf\n", imu_sensor.get_heading());
