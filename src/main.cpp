@@ -110,7 +110,7 @@ void opcontrol() {
 					//std::string perfect = std::to_string(encoder.get_value());
 
 
-					 delay(10);
+					 delay(20);
 		}
 
 }
