@@ -27,6 +27,8 @@ void xDriveLR(double distance);
 void tareAll();
 void xDriveTurn(double degreeInput);
 void driveFor(int seconds);
+void odom2();
+void trackTurn(double degreeInput);
 
 extern Motor driveRF;
 extern Motor driveRB;

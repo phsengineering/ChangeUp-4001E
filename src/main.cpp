@@ -16,13 +16,13 @@ void initialize() {
   double iter = 0;
 
   while (imu_sensor.is_calibrating()) {
-    printf("IMU calibrating... %d\n", iter);
+  //  printf("IMU calibrating... %d\n", iter);
 		std::string s = std::to_string(1.98-(iter/1000));
 		pros::lcd::set_text(3, s);
     iter += 10;
     pros::delay(10);
   }
-  printf("IMU is done calibrating (took %d ms)\n", iter - time);
+//  printf("IMU is done calibrating (took %d ms)\n", iter - time);
 
 }
 
@@ -53,47 +53,15 @@ void opcontrol() {
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				xDriveTurn(90);
+				trackTurn(90);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
-				xDriveTurn(-90);
+				trackTurn(-90);
 		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
 				driveFor(1500);
 		} else if (mainController.get_digital(DIGITAL_R1)) {
-				double del = 650;
-				double spe = 25000;
-				xDriveFB(43);
-				delay(del);
-				xDriveTurn(90);
-				delay(del);
-				xDriveFB(20);
-				delay(del);
-				xDriveTurn(90);
-				delay(del);
-				xDriveFB(23);
-				delay(del);
-				xDriveTurn(-90);
-				delay(del);
-				xDriveFB(20);
-				delay(del);
-				xDriveTurn(90);
-				delay(del);
-				xDriveFB(20);
-				delay(del);
-				xDriveTurn(90);
-				delay(del);
-				xDriveFB(43);
-				delay(del);
-				xDriveTurn(90);
+
 		}
 
-		if (mainController.get_digital(DIGITAL_B)) {
-			odom(true);
-		} else {
-			odom(false);
-		}
-
-
-			//displayTicks();
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
 			int rotate = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from left analog stick
 			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_RIGHT_X); // get X value from right analog stick
@@ -102,15 +70,7 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			xDriveStrafe(analogY, analogX, rotate);
-
-					//	printf("%lf,", imu_sensor.get_rotation());
-					// printf("%lf\n", imu_sensor.get_heading());
-
-
-					//std::string perfect = std::to_string(encoder.get_value());
-
-
-					 delay(20);
+			delay(10);
 		}
 
 }
