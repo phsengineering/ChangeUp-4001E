@@ -22,17 +22,29 @@ void stopAllDrive();
 void dualDrive(double inches, double speed);
 void imuTurn(double angle);
 void xDriveStrafe(int y, int x, int rot);
-void xDriveFB(double distance);
+void asdf(double distance);
 void xDriveLR(double distance);
 void tareAll();
 void xDriveTurn(double degreeInput);
 void driveFor(int seconds);
 void odom2();
 void trackTurn(double degreeInput);
+void normalDrive(int y, int x);
+void autonTurn(double y);
+void intakeHandler(int power);
+void midRollers(int power);
+void topRoller(int power);
+void autonHandler();
 
 extern Motor driveRF;
 extern Motor driveRB;
 extern Motor driveLF;
 extern Motor driveLB;
+
+extern Motor intakeL;
+extern Motor intakeR;
+
+extern Motor rollerT;
+extern Motor rollerB;
 
 extern Imu imu_sensor;

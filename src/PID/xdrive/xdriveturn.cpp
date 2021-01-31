@@ -37,18 +37,18 @@ void xDriveTurn(double degreeInput) {
     bool accel = true;
 
     double kP  =  0.01;  //100
-    double kI  =  0.039;
+    double kI  =  0.000;
     double kD  =  0.01; //20
 
-		double acceptableError = 0.000000; // how close the encoder values have to be to the desired amount to stop the while loop
+		double acceptableError = 0.01; // how close the encoder values have to be to the desired amount to stop the while loop
 		double maxNumberOfCorrections = 50; // max number of small corrections allowed to make at the end of turn
 
 		double correctionAmount = 0;
     double maxRate = 90;
 
-		double commandOffset = 750;
-		double commandMax = 40;
-		double commandSmallCorrection = 8;
+		double commandOffset = 700;
+		double commandMax = 65;
+		double commandSmallCorrection = 30;
 
     while(fabs(currentError) > acceptableError) {
 
@@ -62,9 +62,9 @@ void xDriveTurn(double degreeInput) {
 						if (fabs(command) < 0.01) {
 							if (correctionAmount < maxNumberOfCorrections) {
 								if (command > 0) {
-									xDriveStrafe(0,0,commandSmallCorrection);
+									autonTurn(commandSmallCorrection);
 								} else {
-									xDriveStrafe(0,0,-commandSmallCorrection);
+									autonTurn(-commandSmallCorrection);
 								}
 						  	correctionAmount++;
 							} else {
@@ -74,15 +74,15 @@ void xDriveTurn(double degreeInput) {
 						} else{
                 if (command < 0) {
                   if (fabs(command*commandOffset) > commandMax) {
-                    xDriveStrafe(0,0,-commandMax);
+                    autonTurn(-commandMax);
                   } else {
-                      xDriveStrafe(0,0,command*commandOffset);
+                      autonTurn(command*commandOffset);
                   }
                 } else {
                   if (command*commandOffset > commandMax) {
-                    xDriveStrafe(0,0,commandMax);
+                    autonTurn(commandMax);
                   } else {
-                    xDriveStrafe(0,0,command*commandOffset);
+                    autonTurn(command*commandOffset);
                   }
              }
 						}

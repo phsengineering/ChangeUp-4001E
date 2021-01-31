@@ -5,9 +5,15 @@
 using namespace pros;
 
 Motor driveRB(11, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveRF(12, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLB(20, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLF(19, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRF(20, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveLB(19, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveLF(18, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
+
+Motor intakeL(1, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
+Motor intakeR(2, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+
+Motor rollerB(15, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor rollerT(9, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 pros::Imu imu_sensor(10);
 
@@ -23,21 +29,46 @@ void rightTPS(double tickDistance) {
 
 double timer = 0;
 
-void xDriveStrafe(int y, int x, int rot) {
+void xDriveStrafe(int y, int x, int rotate) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / 127.0;
-  rot *= 11000.0 / 127.0;
 
-  int LF  =  y + x + rot;
-  int LB  =  y - x + rot;
-  int RF  = -y + x + rot;
-  int RB  = -y - x + rot;
-
-  driveLF.move_voltage(LF);
-  driveLB.move_voltage(LB);
-  driveRF.move_voltage(RF);
-  driveRB.move_voltage(RB);
+  driveLF.move_voltage(-y);
+  driveLB.move_voltage(y);
+  driveRF.move_voltage(x);
+  driveRB.move_voltage(x);
 }
+
+void normalDrive(int y, int x) {
+  y *= 11000.0 / 127.0;
+  x *= 11000.0 / -127.0;
+
+  driveRF.move_voltage(y + x);
+  driveRB.move_voltage(y + x);
+  driveLF.move_voltage(y - x);
+  driveLB.move_voltage(y - x);
+
+
+}
+
+
+void intakeHandler(int power) {
+  intakeL.move_voltage(power);
+  intakeR.move_voltage(power);
+}
+
+void midRollers(int power) {
+  rollerB.move_voltage(power);
+}
+
+void topRoller(int power) {
+  rollerT.move_voltage(power);
+}
+
+
+
+
+
 
 void xDriveCorrection(int y, int x, int rot) { // code to make easier for drive (not reccomended for auton)
 
@@ -59,7 +90,15 @@ void xDriveCorrection(int y, int x, int rot) { // code to make easier for drive 
 }
 // Old Drive Code
 
+void autonTurn(double y) {
+  y *= 11000.0 / 127.0;
+//    x *= 11000.0 / 127.0;
 
+  driveLF.move_voltage(y);
+  driveLB.move_voltage(y);
+  driveRF.move_voltage(-y);
+  driveRB.move_voltage(-y);
+}
 
 void drive(int y, int r)
 {

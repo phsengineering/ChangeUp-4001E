@@ -16,13 +16,13 @@ void initialize() {
   double iter = 0;
 
   while (imu_sensor.is_calibrating()) {
-  //  printf("IMU calibrating... %d\n", iter);
+    printf("IMU calibrating... %d\n", iter);
 		std::string s = std::to_string(1.98-(iter/1000));
 		pros::lcd::set_text(3, s);
     iter += 10;
     pros::delay(10);
   }
-//  printf("IMU is done calibrating (took %d ms)\n", iter - time);
+  printf("IMU is done calibrating (took %d ms)\n", iter - time);
 
 }
 
@@ -45,7 +45,9 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous() {}
+void autonomous() {
+	autonHandler();
+}
 
 int wireless = 0;
 
@@ -53,23 +55,57 @@ void opcontrol() {
 	while(true) {
 
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-				trackTurn(90);
+			rollerT.move_voltage(-12000);
+			rollerB.move_voltage(-12000);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
-				trackTurn(-90);
-		} else if (mainController.get_digital(DIGITAL_R2)) { //mid tower
-				driveFor(1500);
-		} else if (mainController.get_digital(DIGITAL_R1)) {
+			rollerT.move_voltage(12000);
+			rollerB.move_voltage(12000);
+		} else {
+			rollerT.move_voltage(0);
+			rollerB.move_voltage(0);
+		}
 
+
+		if (mainController.get_digital(DIGITAL_R1)) {
+			intakeL.move_voltage(12000);
+			intakeR.move_voltage(12000);
+		} else if (mainController.get_digital(DIGITAL_R2)) {
+			intakeL.move_voltage(-12000);
+			intakeR.move_voltage(-12000);
+		} else {
+			intakeL.move_voltage(0);
+			intakeR.move_voltage(0);
+		}
+
+		if (mainController.get_digital(DIGITAL_X)) {
+			intakeL.move_voltage(12000/1.5);
+			intakeR.move_voltage(12000/1.5);
+			rollerT.move_voltage(12000);
+			rollerB.move_voltage(12000);
+			delay(130);
+			intakeL.move_voltage(-12000);
+			intakeR.move_voltage(-12000);
+			rollerT.move_voltage(-12000);
+			rollerB.move_voltage(-12000);
+			delay(800);
+			intakeL.move_voltage(0);
+			intakeR.move_voltage(0);
+			rollerT.move_voltage(0);
+			rollerB.move_voltage(0);
+		}
+
+
+		if(mainController.get_digital(DIGITAL_A)) {
+		  autonHandler();
 		}
 
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
-			int rotate = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from left analog stick
-			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_RIGHT_X); // get X value from right analog stick
+			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from right analog stick
 			if(std::abs(analogY) < 16)
 			{
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
-			xDriveStrafe(analogY, analogX, rotate);
+			normalDrive(analogY, analogX);
 			delay(10);
 		}
 

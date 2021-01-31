@@ -4,13 +4,15 @@
 
 using namespace pros;
 
-void xDriveFB(double distance) {
+void asdf(double distance) {
 
   double timer;
 
   tareAll();
 
   double average = (fabs(driveRF.get_position()) + fabs(driveRB.get_position()) + fabs(driveLF.get_position()) + fabs(driveLB.get_position())) / 4;
+
+  printf("   target: %lf\n", average);
 
   double TARGET = average + distance;
   double currentValue = average;
@@ -36,18 +38,20 @@ void xDriveFB(double distance) {
 
     double command = p + i + d;
 
+    double oppset = -5;
+
     if (driveMotors == true) {
 		    if (fabs(command) < 1) {
 						if (command > 0) {
-							xDriveStrafe(25, 0, 0);
+							normalDrive(25, oppset);
 						} else {
-							xDriveStrafe(-25, 0, 0);
+							normalDrive(-25, oppset);
 						}
 				} else {
               if (command*18 < 50) {
-				        xDriveStrafe(command * 20, 0, 0);
+				        normalDrive(command * 30, oppset);
               } else {
-                xDriveStrafe(40, 0, 0);
+                normalDrive(50, oppset);
               }
 				   }
 			}
@@ -58,18 +62,13 @@ void xDriveFB(double distance) {
     previousError = currentError;
     currentError = TARGET - currentValue;
 
-     pros::c::imu_accel_s_t accel = imu_sensor.get_accel();
+     if (displayValues == true) {
+       printf("currentError: %lf", currentError);
+       printf("   command: %lf", command);
+       printf("   position: %lf", currentValue);
+       printf("   target: %lf\n", TARGET);
+     }
 
-    printf("%lf,", timer);
-    printf("%lf,", accel.x);
-    printf("%lf,", accel.y);
-    printf("%lf\n", accel.z);
-/*
-    printf(",%lf", driveRF.get_position());
-    printf(",%lf", driveRB.get_position());
-    printf(",%lf", driveLF.get_position());
-    printf(",%lf\n", driveLB.get_position());
-    */
     timer++;
     delay(10);
   }
