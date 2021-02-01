@@ -5,45 +5,6 @@
 
 using namespace pros;
 
-
-void autonHandler() {
-  intakeL.move_voltage(-12000);
-  intakeR.move_voltage(-12000);
-  midRollers(12000);
-  asdf(15);
-  delay(1000);
-  xDriveTurn(-120);
-  rollerT.move_voltage(-12000);
-  rollerB.move_voltage(-12000);
-  delay(250);
-  normalDrive(80,0);
-  delay(2000);
-  stopAllDrive();
-  rollerT.move_voltage(-12000);
-  rollerB.move_voltage(-12000);
-  delay(1000);
-  topRoller(0);
-  intakeHandler(0);
-  midRollers(0);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 pros::ADIEncoder leftEncoder ('E', 'F', false);
 pros::ADIEncoder rightEncoder ('C', 'D', false);
@@ -63,10 +24,10 @@ double alpha, h, rl, rr, x, y;
 double alpha2, h2, rl2, rr2, x2, y2;
 
 double combx, comby;
-*/
+
 
 void odom(bool reset) {
-/*
+
   if (reset == true) {
     leftEncoder.reset();
     rightEncoder.reset();
@@ -100,7 +61,7 @@ void odom(bool reset) {
   comby = y + y2;
 
   printf(" \033[1;37m Encoder values: \033[1;32m Left: %f \033[1;33m Right: %f \033[1;34m Middle: %f \033[1;35m ALPHA: %f \033[1;36m H: %f \033[1;37m X: %f \033[1;38m Y: %f\n", leftCorrection, rightCorrection, middleCorrection, alpha, h, combx, comby);
-*/
+
 }
 
 void driveFor(int seconds) {
@@ -128,3 +89,4 @@ void driveFor(int seconds) {
 
 
 }
+*/

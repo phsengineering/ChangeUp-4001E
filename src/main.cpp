@@ -99,6 +99,10 @@ void opcontrol() {
 		  autonHandler();
 		}
 
+		if(mainController.get_digital(DIGITAL_Y)) {
+		  flipout();
+		}
+
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
 			int analogX = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_X); // get X value from right analog stick
 			if(std::abs(analogY) < 16)

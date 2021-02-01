@@ -35,6 +35,8 @@ void intakeHandler(int power);
 void midRollers(int power);
 void topRoller(int power);
 void autonHandler();
+void driveStraight(double distance);
+void turnAngle(double degreeInput);
 
 extern Motor driveRF;
 extern Motor driveRB;

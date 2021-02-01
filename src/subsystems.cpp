@@ -17,27 +17,7 @@ Motor rollerT(9, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 pros::Imu imu_sensor(10);
 
-void leftTPS(double tickDistance) {
-  double current = (driveLB.get_position() + driveLF.get_position()) / 2;
-}
-
-void rightTPS(double tickDistance) {
-
-}
-
-// X-Drive Code
-
 double timer = 0;
-
-void xDriveStrafe(int y, int x, int rotate) {
-  y *= 11000.0 / 127.0;
-  x *= 11000.0 / 127.0;
-
-  driveLF.move_voltage(-y);
-  driveLB.move_voltage(y);
-  driveRF.move_voltage(x);
-  driveRB.move_voltage(x);
-}
 
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;
@@ -47,10 +27,7 @@ void normalDrive(int y, int x) {
   driveRB.move_voltage(y + x);
   driveLF.move_voltage(y - x);
   driveLB.move_voltage(y - x);
-
-
 }
-
 
 void intakeHandler(int power) {
   intakeL.move_voltage(power);
@@ -65,31 +42,6 @@ void topRoller(int power) {
   rollerT.move_voltage(power);
 }
 
-
-
-
-
-
-void xDriveCorrection(int y, int x, int rot) { // code to make easier for drive (not reccomended for auton)
-
-
-
-  y *= 11000.0 / 127.0;
-  x *= 11000.0 / 127.0;
-  rot *= 11000.0 / 127.0;
-
-  int LF  =  y + x + rot;
-  int LB  =  y - x + rot;
-  int RF  = -y + x + rot;
-  int RB  = -y - x + rot;
-
-  driveLF.move_voltage(LF);
-  driveLB.move_voltage(LB);
-  driveRF.move_voltage(RF);
-  driveRB.move_voltage(RB);
-}
-// Old Drive Code
-
 void autonTurn(double y) {
   y *= 11000.0 / 127.0;
 //    x *= 11000.0 / 127.0;
@@ -98,31 +50,6 @@ void autonTurn(double y) {
   driveLB.move_voltage(y);
   driveRF.move_voltage(-y);
   driveRB.move_voltage(-y);
-}
-
-void drive(int y, int r)
-{
-    //Scale up y and r from 127 to 12000
-    y *= 11000.0 / 127.0;
-    r *= 11000.0 / 127.0; //double check math
-
-    driveLF.move_voltage(y + r);
-    driveLB.move_voltage(y + r);
-    driveRF.move_voltage(y - r);
-    driveRB.move_voltage(y - r);
-}
-
-
-void driveVelLeft(double speed)
-{
-    driveLF.move_velocity(speed);
-    driveLB.move_velocity(speed);
-}
-
-void driveVelRight(double speed)
-{
-    driveRF.move_velocity(speed);
-    driveRB.move_velocity(speed);
 }
 
 void turnDrive(double y)
@@ -136,7 +63,6 @@ void turnDrive(double y)
     driveRF.move_voltage(-y*cor*5);
     driveRB.move_voltage(-y*cor*5);
 }
-
 
 void autonDrive(double y, double max)
 {
@@ -153,9 +79,7 @@ void autonDrive(double y, double max)
     driveLB.move_voltage(y);
     driveRF.move_voltage(y);
     driveRB.move_voltage(y);
-
 }
-
 
 void autonDriveVary(double left, double right, double max)
 {
@@ -167,7 +91,6 @@ void autonDriveVary(double left, double right, double max)
   if (left < 0 && left < -fabs(max)){
     left = -max;
   }
-
 
   right *= 11000.0 / 127.0;
   if (right > max) {
@@ -181,9 +104,7 @@ void autonDriveVary(double left, double right, double max)
     driveLB.move_voltage(left);
     driveRF.move_voltage(right);
     driveRB.move_voltage(right);
-
 }
-
 
 void leftDrive(double y, double max) {
   y *= 11000.0 / 127.0;
@@ -225,10 +146,8 @@ void tareAll() {
   driveRB.tare_position();
 }
 
-
-
 void init() {
-/*  pros::lcd::initialize();
+  pros::lcd::initialize();
   pros::lcd::set_text(1, "4001E");
 
   printf("\033[1;31m____________/\\\\\\____        _____/\\\\\\\\\\\\\\____        _____/\\\\\\\\\\\\\\____        ______/\\\\\\_        __/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_        \033[0m\n");
@@ -240,5 +159,4 @@ void init() {
   printf("\033[1;31m      _\\///////////\\\\\\//__        _\\//\\\\\\____/\\\\\\__        _\\//\\\\\\____/\\\\\\__        _____\\/\\\\\\_        _\\/\\\\\\_____________  \033[0m\n");
   printf("\033[1;31m       ___________\\/\\\\\\____        __\\///\\\\\\\\\\\\\\/___        __\\///\\\\\\\\\\\\\\/___        _____\\/\\\\\\_        _\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_ \033[0m\n");
   printf("\033[1;31m        ___________\\///_____        ____\\///////_____        ____\\///////_____        _____\\///_         _\\///////////////__\033[0m\n");
-*/
 }
