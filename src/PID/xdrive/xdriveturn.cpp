@@ -28,9 +28,9 @@ void xDriveTurn(double degreeInput) {
 		bool displayValues = true;
 		bool driveMotors = true;
 
-    double TARGET = (imu_sensor.get_rotation()) + angle;
+    double TARGET = (thatIMU.get_rotation()) + angle;
 
-    double currentValue = imu_sensor.get_rotation();
+    double currentValue = thatIMU.get_rotation();
     double currentError = TARGET - currentValue;
     double previousError = 0;
 
@@ -95,7 +95,7 @@ void xDriveTurn(double degreeInput) {
             maxRate += 10;
         }
 
-        currentValue = imu_sensor.get_rotation();
+        currentValue = thatIMU.get_rotation();
         previousError = currentError;
         currentError = TARGET - currentValue;
 

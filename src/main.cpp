@@ -8,21 +8,24 @@ using namespace pros;
 pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
 void initialize() {
-	init();
-	mainController.set_text(0, 0, "4001E");
-  imu_sensor.reset();
+		init();
+		mainController.set_text(0, 0, "4001E");
 
-  double time = pros::millis();
-  double iter = 0;
+		thatIMU.reset();
 
-  while (imu_sensor.is_calibrating()) {
-    printf("IMU calibrating... %d\n", iter);
-		std::string s = std::to_string(1.98-(iter/1000));
-		pros::lcd::set_text(3, s);
-    iter += 10;
-    pros::delay(10);
-  }
-  printf("IMU is done calibrating (took %d ms)\n", iter - time);
+	  double time = pros::millis();
+	  double iter = 0;
+
+	  while (thatIMU.is_calibrating()) {
+	    printf("IMU calibrating... %d\n", iter);
+			std::string s = std::to_string(1.98-(iter/1000));
+			pros::lcd::set_text(3, s);
+	    iter += 10;
+	    pros::delay(10);
+	  }
+	  printf("IMU is done calibrating (took %d ms)\n", iter - time);
+
+			  thatIMU.reset();
 
 }
 
@@ -100,7 +103,7 @@ void opcontrol() {
 		}
 
 		if(mainController.get_digital(DIGITAL_Y)) {
-		  flipout();
+		  //flipout();
 		}
 
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick
@@ -110,6 +113,7 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			normalDrive(analogY, analogX);
+		//	odom(true);
 			delay(10);
 		}
 

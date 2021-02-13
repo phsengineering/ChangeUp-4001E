@@ -49,4 +49,8 @@ extern Motor intakeR;
 extern Motor rollerT;
 extern Motor rollerB;
 
-extern Imu imu_sensor;
+extern Imu thatIMU;
+
+extern ADIEncoder leftEncoder;
+extern ADIEncoder rightEncoder;
+extern ADIEncoder middleEncoder;

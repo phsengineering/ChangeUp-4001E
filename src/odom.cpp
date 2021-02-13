@@ -5,10 +5,11 @@
 
 using namespace pros;
 
-/*
-pros::ADIEncoder leftEncoder ('E', 'F', false);
-pros::ADIEncoder rightEncoder ('C', 'D', false);
-pros::ADIEncoder middleEncoder ('A', 'B', true);
+
+pros::ADIEncoder rightEncoder ('G', 'H', false);
+pros::ADIEncoder middleEncoder ('A', 'B', false);
+pros::ADIEncoder leftEncoder ('D', 'C', true);
+
 
 double PI = 3.141592;
 
@@ -89,4 +90,3 @@ void driveFor(int seconds) {
 
 
 }
-*/

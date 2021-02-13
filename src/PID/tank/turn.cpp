@@ -18,30 +18,32 @@ void turnAngle(double degreeInput) {
 		printf(" degrees\n");
 
 		double angle;
-
+/*
 		if (degreeInput >= 0) {
 			angle = (degreeInput * 0.987) - 2;
 		} else {
 			angle = (degreeInput * 1.03) - 1.23; // down is less turn, up is more
 		}
+*/
+		angle = degreeInput;
 
 		bool displayValues = true;
 		bool driveMotors = true;
 
-    double TARGET = (imu_sensor.get_rotation()) + angle;
+    double TARGET = (thatIMU.get_rotation()) + angle;
 
-    double currentValue = imu_sensor.get_rotation();
+    double currentValue = thatIMU.get_rotation();
     double currentError = TARGET - currentValue;
     double previousError = 0;
 
     bool accel = true;
 
-    double kP  =  0.01;  //100
-    double kI  =  0.000;
-    double kD  =  0.01; //20
+    double kP  =  0.02;  //100
+    double kI  =  0.001;
+    double kD  =  0.07; //20
 
-		double acceptableError = 0.01; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 50; // max number of small corrections allowed to make at the end of turn
+		double acceptableError = 0.000; // how close the encoder values have to be to the desired amount to stop the while loop
+		double maxNumberOfCorrections = 100; // max number of small corrections allowed to make at the end of turn
 
 		double correctionAmount = 0;
     double maxRate = 90;
@@ -59,7 +61,7 @@ void turnAngle(double degreeInput) {
         double command = p + i + d;
 
 				if (driveMotors == true) {
-						if (fabs(command) < 0.01) {
+						if (fabs(command) < 0.04) {
 							if (correctionAmount < maxNumberOfCorrections) {
 								if (command > 0) {
 									autonTurn(commandSmallCorrection);
@@ -72,6 +74,7 @@ void turnAngle(double degreeInput) {
 							}
               printf("\033[1;31m[SMALL CORRECTION] \033[0m");
 						} else{
+							printf("\033[1;33m[NORMAL CORRECTION] \033[0m");
                 if (command < 0) {
                   if (fabs(command*commandOffset) > commandMax) {
                     autonTurn(-commandMax);
@@ -95,7 +98,7 @@ void turnAngle(double degreeInput) {
             maxRate += 10;
         }
 
-        currentValue = imu_sensor.get_rotation();
+        currentValue = thatIMU.get_rotation();
         previousError = currentError;
         currentError = TARGET - currentValue;
 
@@ -111,8 +114,5 @@ void turnAngle(double degreeInput) {
 		printf("\033[1;33mThis PID Loop has hopefully turned: \033[0m");
 		printf(" %lf", angle);
 		printf(" degrees\n");
-    driveLF.move_velocity(0);
-    driveRF.move_velocity(0);
-    driveLB.move_velocity(0);
-    driveRB.move_velocity(0);
+    stopAllDrive();
 }

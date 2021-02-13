@@ -15,16 +15,16 @@ Motor intakeR(2, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 Motor rollerB(15, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 Motor rollerT(9, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
-pros::Imu imu_sensor(10);
-
 double timer = 0;
+
+pros::Imu thatIMU(7);
 
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / -127.0;
 
-  driveRF.move_voltage(y + x);
-  driveRB.move_voltage(y + x);
+  driveRF.move_voltage((y + x)/1.08);
+  driveRB.move_voltage((y + x)/1.08);
   driveLF.move_voltage(y - x);
   driveLB.move_voltage(y - x);
 }

@@ -4,10 +4,10 @@
 #include <math.h>
 
 using namespace pros;
-
-pros::ADIEncoder leftEncoder ('E', 'F', false);
-pros::ADIEncoder rightEncoder ('C', 'D', false);
-pros::ADIEncoder middleEncoder ('A', 'B', true);
+/*
+pros::ADIEncoder rightEncoder ('G', 'H', false);
+pros::ADIEncoder middleEncoder ('A', 'B', false);
+pros::ADIEncoder leftEncoder ('D', 'C', true);
 
 double LEFTENCODER, RIGHTENCODER, MIDDLEENCODER;
 
@@ -27,6 +27,8 @@ void odom2() {
   RIGHTENCODER = rightEncoder.get_value();
   MIDDLEENCODER = middleEncoder.get_value();
 
+//  printf("[l: %f r: %f m: %f]\n", LEFTENCODER, RIGHTENCODER, MIDDLEENCODER);
+
   double leftCorrection = (LEFTENCODER / 360) * circumference;
   double rightCorrection = (RIGHTENCODER / 360) * circumference;
   double middleCorrection = (MIDDLEENCODER / 360) * circumference;
@@ -40,4 +42,8 @@ void odom2() {
   dly = 2 * (sin(theta/2) * ((rightCorrection / theta) + sr));
 
   printf("[Theta: %f X: %f Y: %f]\n", (theta*(180/PI)), dlx, dly);
+}
+*/
+void odom2() {
+  
 }
