@@ -29,16 +29,26 @@ void normalDrive(int y, int x) {
   driveLB.move_voltage(y - x);
 }
 
-void intakeHandler(int power) {
+void fbauton(double y, double x) {
+  y *= 11000.0 / 127.0;
+  x *= 11000.0 / -127.0;
+
+  driveRF.move_voltage((y + x)/1.08);
+  driveRB.move_voltage((y + x)/1.08);
+  driveLF.move_voltage(y - x);
+  driveLB.move_voltage(y - x);
+}
+
+void intakeHandler(double power) {
   intakeL.move_voltage(power);
   intakeR.move_voltage(power);
 }
 
-void midRollers(int power) {
+void midRollers(double power) {
   rollerB.move_voltage(power);
 }
 
-void topRoller(int power) {
+void topRoller(double power) {
   rollerT.move_voltage(power);
 }
 
@@ -131,6 +141,24 @@ void rightDrive(double y, double max) {
     driveRF.move_voltage(y/1.075);
     driveRB.move_voltage(y/1.075);
 }
+
+
+void driveFor(double seconds, double power) {
+  double y = power;
+  y *= 11000.0 / 127.0;
+
+  double x = 0;
+
+  driveRF.move_voltage((y + x)/1.08);
+  driveRB.move_voltage((y + x)/1.08);
+  driveLF.move_voltage(y - x);
+  driveLB.move_voltage(y - x);
+
+  delay(seconds);
+
+  stopAllDrive();
+}
+
 
 void stopAllDrive() {
   driveLF.move_velocity(0);

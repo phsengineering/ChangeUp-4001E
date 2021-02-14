@@ -38,7 +38,7 @@ void turnAngle(double degreeInput) {
 
     bool accel = true;
 
-    double kP  =  0.02;  //100
+    double kP  =  0.019;  //100
     double kI  =  0.001;
     double kD  =  0.07; //20
 

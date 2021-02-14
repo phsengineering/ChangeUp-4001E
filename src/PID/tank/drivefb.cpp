@@ -6,6 +6,14 @@ using namespace pros;
 
 void driveStraight(double input) {
 
+  double direction;
+
+  if (input < 0) {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+
   double timer;
 
   tareAll();
@@ -16,7 +24,7 @@ void driveStraight(double input) {
   double distance = ((input / 8.9) * 360);
 
   //double average = (fabs(driveRF.get_position()) + fabs(driveRB.get_position()) + fabs(driveLF.get_position()) + fabs(driveLB.get_position())) / 4;
-  double average = fabs(leftEncoder.get_value() + rightEncoder.get_value()) / 2;
+  double average = leftEncoder.get_value() + rightEncoder.get_value() / 2;
 
   double TARGET = average + distance;
   double currentValue = average;
@@ -51,23 +59,23 @@ void driveStraight(double input) {
     if (driveMotors == true && correctionAmount < maxNumberOfCorrections) {
 		    if (fabs(command) < 1) {
 						if (command > 0) {
-							normalDrive(25, oppset);
+							fbauton(25, oppset);
 						} else {
-							normalDrive(-25, oppset);
+							fbauton(-25, oppset);
 						}
             correctionAmount++;
 				} else {
-              if (command*18 < 50) {
-				        normalDrive(command * 19, oppset);
+              if (fabs(command*18) < 50) {
+				        fbauton(command * 19, oppset);
               } else {
-                normalDrive(60, oppset);
+                fbauton(60*direction, oppset);
               }
 				   }
 			} else {
         break;
       }
 
-    average = fabs(leftEncoder.get_value() + rightEncoder.get_value()) / 2;
+    average = (leftEncoder.get_value() + rightEncoder.get_value()) / 2;
 
     currentValue = average;
     previousError = currentError;

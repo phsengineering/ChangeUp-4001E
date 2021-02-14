@@ -64,29 +64,3 @@ void odom(bool reset) {
   printf(" \033[1;37m Encoder values: \033[1;32m Left: %f \033[1;33m Right: %f \033[1;34m Middle: %f \033[1;35m ALPHA: %f \033[1;36m H: %f \033[1;37m X: %f \033[1;38m Y: %f\n", leftCorrection, rightCorrection, middleCorrection, alpha, h, combx, comby);
 
 }
-
-void driveFor(int seconds) {
-  int y = 100;
-  int x, rot = 0;
-
-  y *= 11000.0 / 127.0;
-  x *= 11000.0 / 127.0;
-  rot *= 11000.0 / 127.0;
-
-  int LF  =  y + x + rot;
-  int LB  =  y - x + rot;
-  int RF  = -y + x + rot;
-  int RB  = -y - x + rot;
-
-  driveLF.move_voltage(LF);
-  driveLB.move_voltage(LB);
-  driveRF.move_voltage(RF);
-  driveRB.move_voltage(RB);
-
-  delay(seconds);
-
-  stopAllDrive();
-
-
-
-}

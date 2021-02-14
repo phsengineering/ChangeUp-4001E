@@ -9,7 +9,7 @@ pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 
 void initialize() {
 		init();
-		mainController.set_text(0, 0, "4001E");
+		mainController.set_text(0, 0, "where's gabe");
 
 		thatIMU.reset();
 
