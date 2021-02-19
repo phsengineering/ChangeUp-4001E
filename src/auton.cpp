@@ -9,9 +9,7 @@ double delayBetween = 250;
 
 void autonHandler() {
 
-  driveStraight(50, 0);
-
-/*  intakeHandler(-12000);
+  intakeHandler(-12000);
   rollerB.move_voltage(-12000);
   thatIMU.reset();
 
