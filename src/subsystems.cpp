@@ -4,27 +4,27 @@
 
 using namespace pros;
 
-Motor driveRB(11, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveRF(20, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLB(19, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
-Motor driveLF(18, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRB(8, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveRF(9, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveLB(5, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
+Motor driveLF(4, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
 
-Motor intakeL(1, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
-Motor intakeR(2, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor intakeL(7, E_MOTOR_GEARSET_06, true, E_MOTOR_ENCODER_ROTATIONS);
+Motor intakeR(10, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
-Motor rollerB(15, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
-Motor rollerT(9, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor rollerB(6, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
+Motor rollerT(3, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 double timer = 0;
 
-pros::Imu thatIMU(7);
+pros::Imu thatIMU(1);
 
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / -127.0;
 
-  driveRF.move_voltage((y + x)/1.08);
-  driveRB.move_voltage((y + x)/1.08);
+  driveRF.move_voltage((y + x)/1);
+  driveRB.move_voltage((y + x)/1);
   driveLF.move_voltage(y - x);
   driveLB.move_voltage(y - x);
 }
@@ -33,8 +33,8 @@ void fbauton(double y, double x) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / -127.0;
 
-  driveRF.move_voltage((y + x)/1.08);
-  driveRB.move_voltage((y + x)/1.08);
+  driveRF.move_voltage((y + x)*1.016);
+  driveRB.move_voltage((y + x)*1.016);
   driveLF.move_voltage(y - x);
   driveLB.move_voltage(y - x);
 }

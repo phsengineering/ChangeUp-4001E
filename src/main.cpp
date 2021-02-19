@@ -102,8 +102,8 @@ void opcontrol() {
 		  autonHandler();
 		}
 
-		if(mainController.get_digital(DIGITAL_Y)) {
-		  //flipout();
+		if(mainController.get_digital(DIGITAL_UP)) {
+		  rollerB.move_voltage(-12000);
 		}
 
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick

@@ -4,7 +4,7 @@
 
 using namespace pros;
 
-void driveStraight(double input) {
+void driveStraight(double input, double thatDelay) {
 
   double direction;
 
@@ -90,9 +90,12 @@ void driveStraight(double input) {
 
     timer++;
     delay(10);
+    odom2();
   }
 
   correctionAmount = 0;
   stopAllDrive();
   timer = 0;
+
+  delay(thatDelay);
 }

@@ -35,9 +35,11 @@ void intakeHandler(double power);
 void midRollers(double power);
 void topRoller(double power);
 void autonHandler();
-void driveStraight(double distance);
-void turnAngle(double degreeInput);
+void driveStraight(double distance, double thatDelay);
+void turnAngle(double degreeInput, double thatDelay);
+void dual(double distance, double thatDelay);
 void fbauton(double y, double x);
+void score();
 
 extern Motor driveRF;
 extern Motor driveRB;

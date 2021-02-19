@@ -5,7 +5,7 @@
 using namespace pros;
 
 
-void turnAngle(double degreeInput) {
+void turnAngle(double degreeInput, double thatDelay) {
 
 		driveLF.tare_position();
 		driveRF.tare_position();
@@ -23,9 +23,9 @@ void turnAngle(double degreeInput) {
 			angle = (degreeInput * 0.987) - 2;
 		} else {
 			angle = (degreeInput * 1.03) - 1.23; // down is less turn, up is more
-		}
+
 */
-		angle = degreeInput;
+		angle = degreeInput * 1;
 
 		bool displayValues = true;
 		bool driveMotors = true;
@@ -38,27 +38,42 @@ void turnAngle(double degreeInput) {
 
     bool accel = true;
 
-    double kP  =  0.019;  //100
-    double kI  =  0.001;
-    double kD  =  0.07; //20
+    double kP  =  0.01; //100
+    double kI  =  0.0165;
+    double kD  =  0.10; //20
 
 		double acceptableError = 0.000; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 100; // max number of small corrections allowed to make at the end of turn
+		double maxNumberOfCorrections = 160; // max number of small corrections allowed to make at the end of turn
 
 		double correctionAmount = 0;
     double maxRate = 90;
 
-		double commandOffset = 700;
-		double commandMax = 65;
-		double commandSmallCorrection = 30;
+		double commandOffset = 2500;
+		double commandMax = 70;
+		double commandSmallCorrection = 24;
 
-    while(fabs(currentError) > acceptableError) {
+    while(fabs(currentError) > acceptableError && correctionAmount < maxNumberOfCorrections) {
 
         double p  = kP * currentError;
         double i  = kI;
         double d  = kD * (currentError - previousError);
 
         double command = p + i + d;
+
+			/*	if (fabs((command*commandOffset)) > commandMax) {
+					if (command < 0) {
+						autonTurn(commandMax*-1);
+					} else {
+						autonTurn(commandMax);
+					}
+				} else {
+					if (fabs(command) <= 0.1) {
+						autonTurn(command*commandOffset/30);
+						correctionAmount++;
+					} else {
+						autonTurn((command*commandOffset));
+				}
+			} */
 
 				if (driveMotors == true) {
 						if (fabs(command) < 0.04) {
@@ -115,4 +130,6 @@ void turnAngle(double degreeInput) {
 		printf(" %lf", angle);
 		printf(" degrees\n");
     stopAllDrive();
+
+		delay(thatDelay);
 }
