@@ -8,14 +8,13 @@ using namespace pros;
 double delayBetween = 250;
 
 void autonHandler() {
-
   intakeHandler(-12000);
   rollerB.move_voltage(-12000);
   thatIMU.reset();
 
   delay(2005);
 
-  driveStraight(25.5, delayBetween); //23.5
+  driveStraight(28.5, delayBetween); //23.5
   intakeHandler(0);
   rollerB.move_voltage(0);
 
@@ -25,9 +24,7 @@ void autonHandler() {
 
   score();
 
-  driveStraight(-30, delayBetween);
-
-  turnAngle(-45, 0);
+  driveStraight(-32, delayBetween);
 
   intakeHandler(12000);
   rollerT.move_voltage(12000);
@@ -35,7 +32,7 @@ void autonHandler() {
 
   delay(1000);
   rollerT.move_voltage(0);
-  turnAngle(90, 0);
+  turnAngle(48, 0);
   intakeHandler(-12000);
   rollerB.move_voltage(-12000);
   driveStraight(25, delayBetween);
@@ -83,7 +80,7 @@ void autonHandler() {
 
   score();
 
-  stopAllDrive(); */
+  stopAllDrive();
 }
 
 

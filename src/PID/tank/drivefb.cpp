@@ -39,7 +39,7 @@ void driveStraight(double input, double thatDelay) {
 	double acceptableError = 0.1;
   double maxNumberOfCorrections = 100;
 
-  double speedCorrection = 5;
+  double speedCorrection = 4;
 
   bool driveMotors = true;
   bool displayValues = true;
