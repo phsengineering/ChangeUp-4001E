@@ -39,7 +39,7 @@ void turnAngle(double degreeInput, double thatDelay) {
     bool accel = true;
 
     double kP  =  0.015; //100
-    double kI  =  0.011;
+    double kI  =  0.015;
     double kD  =  0.15; //20
 
 		double acceptableError = 0.000; // how close the encoder values have to be to the desired amount to stop the while loop
@@ -48,9 +48,9 @@ void turnAngle(double degreeInput, double thatDelay) {
 		double correctionAmount = 0;
     double maxRate = 90;
 
-		double commandOffset = 1500;
-		double commandMax = 60;
-		double commandSmallCorrection = 19;
+		double commandOffset = 2500;
+		double commandMax = 65;
+		double commandSmallCorrection = 20;
 
     while(fabs(currentError) > acceptableError && correctionAmount < maxNumberOfCorrections) {
 

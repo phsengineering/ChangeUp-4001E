@@ -19,6 +19,17 @@ double timer = 0;
 
 pros::Imu thatIMU(1);
 
+void flipout() {
+  intakeL.move_voltage(-12000);
+  intakeR.move_voltage(-12000);
+  delay(350);
+  intakeL.move_voltage(0);
+  intakeR.move_voltage(0);
+  rollerT.move_voltage(-12000);
+  delay(1000);
+  rollerT.move_voltage(0);
+}
+
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / -127.0;

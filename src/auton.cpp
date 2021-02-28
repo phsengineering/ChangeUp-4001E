@@ -8,39 +8,47 @@ using namespace pros;
 double delayBetween = 250;
 
 void autonHandler() {
+
+  thatIMU.reset();
+  flipout();
+
+  delay(200);
+
   intakeHandler(-12000);
   rollerB.move_voltage(-12000);
-  thatIMU.reset();
 
-  delay(2005);
+  delay(500);
 
-  driveStraight(28.5, delayBetween); //23.5
+  driveStraight(36, 0); //23.5
   intakeHandler(0);
   rollerB.move_voltage(0);
 
-  turnAngle(-135, delayBetween);
+  delay(750);
 
-  driveStraight(27.5, 100);
+  turnAngle(-68, delayBetween);
+
+  driveStraight(18, 100);
 
   score();
 
+  intakeHandler(2000);
   driveStraight(-32, delayBetween);
 
-  intakeHandler(12000);
-  rollerT.move_voltage(12000);
-  rollerB.move_voltage(12000);
+  turnAngle(45, delayBetween);
 
-  delay(1000);
-  rollerT.move_voltage(0);
-  turnAngle(48, 0);
   intakeHandler(-12000);
-  rollerB.move_voltage(-12000);
   driveStraight(25, delayBetween);
   rollerT.move_voltage(0);
   rollerB.move_voltage(0);
   intakeHandler(0);
   driveStraight(-15, delayBetween);
+  rollerB.move_voltage(-12000);
+  rollerT.move_voltage(-12000);
+  delay(700);
+  rollerB.move_voltage(0);
+  rollerT.move_voltage(0);
   turnAngle(90, delayBetween);
+  /*
   intakeHandler(-12000);
   driveStraight(32, delayBetween);
   turnAngle(-90, delayBetween);
@@ -79,6 +87,7 @@ void autonHandler() {
   driveStraight(20, delayBetween);
 
   score();
+  */
 
   stopAllDrive();
 }
@@ -93,7 +102,7 @@ void score() {
   rollerT.move_voltage(-12000);
   rollerB.move_voltage(-12000);
 
-  delay(700);
+  delay(500);
   intakeHandler(0);
   topRoller(0);
   delay(1200);

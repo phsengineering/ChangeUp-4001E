@@ -4,7 +4,3 @@
 #include <math.h>
 
 using namespace pros;
-
-void flipout() {
-  midRollers(12000);
-}

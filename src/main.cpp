@@ -80,23 +80,6 @@ void opcontrol() {
 			intakeR.move_voltage(0);
 		}
 
-		if (mainController.get_digital(DIGITAL_X)) {
-			intakeL.move_voltage(12000/1.5);
-			intakeR.move_voltage(12000/1.5);
-			rollerT.move_voltage(12000);
-			rollerB.move_voltage(12000);
-			delay(130);
-			intakeL.move_voltage(-12000);
-			intakeR.move_voltage(-12000);
-			rollerT.move_voltage(-12000);
-			rollerB.move_voltage(-12000);
-			delay(800);
-			intakeL.move_voltage(0);
-			intakeR.move_voltage(0);
-			rollerT.move_voltage(0);
-			rollerB.move_voltage(0);
-		}
-
 
 		if(mainController.get_digital(DIGITAL_A)) {
 		  autonHandler();
@@ -104,6 +87,10 @@ void opcontrol() {
 
 		if(mainController.get_digital(DIGITAL_UP)) {
 		  rollerB.move_voltage(-12000);
+		}
+
+		if(mainController.get_digital(DIGITAL_DOWN)) {
+		  flipout();
 		}
 
 			int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick

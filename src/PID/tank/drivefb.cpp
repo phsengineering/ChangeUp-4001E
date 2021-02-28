@@ -65,7 +65,7 @@ void driveStraight(double input, double thatDelay) {
 						}
             correctionAmount++;
 				} else {
-              if (fabs(command*18) < 50) {
+              if (fabs(command*19) < 50) {
 				        fbauton(command * 19, oppset);
               } else {
                 fbauton(60*direction, oppset);

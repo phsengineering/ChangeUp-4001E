@@ -40,6 +40,7 @@ void turnAngle(double degreeInput, double thatDelay);
 void dual(double distance, double thatDelay);
 void fbauton(double y, double x);
 void score();
+void flipout();
 
 extern Motor driveRF;
 extern Motor driveRB;
