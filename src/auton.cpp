@@ -9,7 +9,6 @@ double delayBetween = 250;
 
 void autonHandler() {
 
-  thatIMU.reset();
   flipout();
 
   delay(200);
@@ -25,14 +24,16 @@ void autonHandler() {
 
   delay(750);
 
-  turnAngle(-68, delayBetween);
+  turnAngle(-73, delayBetween);
 
   driveStraight(18, 100);
 
   score();
 
   intakeHandler(2000);
-  driveStraight(-32, delayBetween);
+  driveStraight(-30, delayBetween);
+/*
+  intakeHandler(12000);
 
   turnAngle(45, delayBetween);
 
@@ -48,7 +49,7 @@ void autonHandler() {
   rollerB.move_voltage(0);
   rollerT.move_voltage(0);
   turnAngle(90, delayBetween);
-  /*
+
   intakeHandler(-12000);
   driveStraight(32, delayBetween);
   turnAngle(-90, delayBetween);
@@ -87,16 +88,18 @@ void autonHandler() {
   driveStraight(20, delayBetween);
 
   score();
-  */
+
 
   stopAllDrive();
+
+  */
 }
 
 
 
 void score() {
   intakeHandler(-12000);
-  driveFor(700, 55);
+  driveFor(700, 75);
   delay(100);
 
   rollerT.move_voltage(-12000);
