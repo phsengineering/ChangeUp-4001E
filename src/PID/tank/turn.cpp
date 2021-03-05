@@ -18,13 +18,7 @@ void turnAngle(double degreeInput, double thatDelay) {
 		printf(" degrees\n");
 
 		double angle;
-/*
-		if (degreeInput >= 0) {
-			angle = (degreeInput * 0.987) - 2;
-		} else {
-			angle = (degreeInput * 1.03) - 1.23; // down is less turn, up is more
-
-*/
+		
 		angle = degreeInput * 1;
 
 		bool displayValues = true;
@@ -59,21 +53,6 @@ void turnAngle(double degreeInput, double thatDelay) {
         double d  = kD * (currentError - previousError);
 
         double command = p + i + d;
-
-			/*	if (fabs((command*commandOffset)) > commandMax) {
-					if (command < 0) {
-						autonTurn(commandMax*-1);
-					} else {
-						autonTurn(commandMax);
-					}
-				} else {
-					if (fabs(command) <= 0.1) {
-						autonTurn(command*commandOffset/30);
-						correctionAmount++;
-					} else {
-						autonTurn((command*commandOffset));
-				}
-			} */
 
 				if (driveMotors == true) {
 						if (fabs(command) < 0.1) {

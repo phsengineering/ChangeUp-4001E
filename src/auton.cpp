@@ -11,27 +11,61 @@ void autonHandler() {
 
   flipout();
 
-  delay(200);
+  intakeHandler(-12000);
+  driveStraight(36, delayBetween); // drive to first ball on edge of tile
+
+  intakeHandler(0);
+  turnAngle(-73, delayBetween); // turn towards goal
+
+  driveStraight(18, 0); // drive towards goal
+  score(); //[A1]
+
+  driveStraight(-30, delayBetween); //back up from goal
+
+  turnAngle(135, delayBetween); // turn towards next ball
 
   intakeHandler(-12000);
-  rollerB.move_voltage(-12000);
+  driveStraight(50, delayBetween); // drive towards next ball while intaking
 
-  delay(500);
-
-  driveStraight(36, 0); //23.5
   intakeHandler(0);
-  rollerB.move_voltage(0);
+  turnAngle(-90, delayBetween); // turn towards goal
 
-  delay(750);
+  score(); //[A2]
 
-  turnAngle(-73, delayBetween);
+  driveStraight(-30, delayBetween); // back up from goal
 
-  driveStraight(18, 100);
+  turnAngle(101, delayBetween); //turn towards next ball
 
-  score();
+  intakeHandler(-12000);
+  driveStraight(50, delayBetween); // drive towards next ball
 
-  intakeHandler(2000);
-  driveStraight(-30, delayBetween);
+  intakeHandler(0);
+
+  driveStraight(-10, delayBetween);
+
+  turnAngle(-101, delayBetween);
+
+  driveStraight(15, delayBetween);
+
+  score(); //[A3]
+
+  driveStraight(-15, delayBetween);
+
+  turnAngle(160, delayBetween);
+
+  intakeHandler(-12000);
+  driveStraight(50, delayBetween);
+
+  intakeHandler(0);
+  turnAngle(-130, delayBetween);
+
+
+
+
+
+
+
+
 /*
   intakeHandler(12000);
 
@@ -93,22 +127,4 @@ void autonHandler() {
   stopAllDrive();
 
   */
-}
-
-
-
-void score() {
-  intakeHandler(-12000);
-  driveFor(700, 75);
-  delay(100);
-
-  rollerT.move_voltage(-12000);
-  rollerB.move_voltage(-12000);
-
-  delay(500);
-  intakeHandler(0);
-  topRoller(0);
-  delay(1200);
-  topRoller(0);
-  midRollers(0);
 }
