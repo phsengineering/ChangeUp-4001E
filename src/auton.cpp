@@ -12,38 +12,42 @@ void autonHandler() {
   flipout();
 
   intakeHandler(-12000);
-  driveStraight(36, delayBetween); // drive to first ball on edge of tile
+  driveStraight(37, delayBetween); // drive to first ball on edge of tile
 
   intakeHandler(0);
-  turnAngle(-73, delayBetween); // turn towards goal
+  turnAngle(-74, delayBetween); // turn towards goal
 
-  driveStraight(18, 0); // drive towards goal
+  driveStraight(20, 0); // drive towards goal
   score(); //[A1]
 
-  driveStraight(-30, delayBetween); //back up from goal
+  driveStraight(-8, delayBetween); //back up from goal
 
-  turnAngle(135, delayBetween); // turn towards next ball
-
+  turnAngle(155, delayBetween); // turn towards next ball
   intakeHandler(-12000);
-  driveStraight(50, delayBetween); // drive towards next ball while intaking
 
+  driveStraight(55, delayBetween); // drive towards next ball while intaking
+
+  turnAngle(-117, delayBetween);
+
+  driveStraight(25, delayBetween);
   intakeHandler(0);
-  turnAngle(-90, delayBetween); // turn towards goal
 
+  rollerB.move_voltage(-12000);
+  rollerT.move_voltage(-12000);
   score(); //[A2]
 
-  driveStraight(-30, delayBetween); // back up from goal
+  driveStraight(-18.5, delayBetween); // back up from goal
 
-  turnAngle(101, delayBetween); //turn towards next ball
+  turnAngle(90, delayBetween); //turn towards next ball
 
   intakeHandler(-12000);
   driveStraight(50, delayBetween); // drive towards next ball
 
   intakeHandler(0);
 
-  driveStraight(-10, delayBetween);
+  driveStraight(-20, delayBetween);
 
-  turnAngle(-101, delayBetween);
+  turnAngle(-45, delayBetween);
 
   driveStraight(15, delayBetween);
 

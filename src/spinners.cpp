@@ -31,7 +31,7 @@ void flipout() {
 void score() {
   driveFor(700, 75);
   rollerHandler(-100);
-  delay(750);
+  delay(500);
   rollerHandler(0);
 
 /*  intakeHandler(-12000);

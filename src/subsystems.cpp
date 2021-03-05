@@ -33,8 +33,8 @@ void fbauton(double y, double x) {
   y *= 11000.0 / 127.0;
   x *= 11000.0 / -127.0;
 
-  driveRF.move_voltage((y + x)/1.04); //1.016
-  driveRB.move_voltage((y + x)/1.04);
+  driveRF.move_voltage(y + x);
+  driveRB.move_voltage(y + x);
   driveLF.move_voltage(y - x);
   driveLB.move_voltage(y - x);
 }
@@ -53,8 +53,8 @@ void driveFor(double seconds, double power) {
   double y = power;
   y *= 11000.0 / 127.0;
 
-  driveRF.move_voltage((y + x)/1.08);
-  driveRB.move_voltage((y + x)/1.08);
+  driveRF.move_voltage((y + x)/1);
+  driveRB.move_voltage((y + x)/1);
   driveLF.move_voltage(y - x);
   driveLB.move_voltage(y - x);
 
