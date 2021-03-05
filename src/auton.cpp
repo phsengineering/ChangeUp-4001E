@@ -59,14 +59,27 @@ void autonHandler() {
   intakeHandler(0);
   turnAngle(-130, delayBetween);
 
+  driveStraight(20, delayBetween);
 
+  score(); //[B3]
 
+  driveStraight(-15, delayBetween);
 
+  turnAngle(90, delayBetween);
 
+  intakeHandler(-12000);
+  driveStraight(30, delayBetween);
 
+  intakeHandler(0);
+  turnAngle(-45, delayBetween);
 
+  driveStraight(10, delayBetween);
 
-/*
+  score(); //[C3]
+
+  driveStraight(-20, delayBetween);
+
+  /*
   intakeHandler(12000);
 
   turnAngle(45, delayBetween);
@@ -125,6 +138,5 @@ void autonHandler() {
 
 
   stopAllDrive();
-
   */
 }
