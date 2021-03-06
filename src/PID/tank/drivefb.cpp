@@ -32,12 +32,14 @@ void driveStraight(double input, double thatDelay) {
   double currentError = TARGET - currentValue;
   double previousError = 0;
 
-  double kP  =  0.005;
+  double kP  =  0.2;
   double kI  =  0.0;
-  double kD  =  0.12;
+  double kD  =  0.0;
 
-	double acceptableError = 0.1;
-  double maxNumberOfCorrections = 100;
+	double acceptableError = 0.0;
+  double maxNumberOfCorrections = 999999999;
+
+  double maxSpeed = 500;
 
   double speedCorrection = 4;
 
@@ -52,28 +54,19 @@ void driveStraight(double input, double thatDelay) {
     double i  = kI;
     double d  = kD * (currentError - previousError);
 
-    double command = (p + i + d) * speedCorrection;
+    double command = (p + i + d);
 
     double oppset = 0;
 
-    if (driveMotors == true && correctionAmount < maxNumberOfCorrections) {
-		    if (fabs(command) < 1) {
-						if (command > 0) {
-							fbauton(25, oppset);
-						} else {
-							fbauton(-25, oppset);
-						}
-            correctionAmount++;
-				} else {
-              if (fabs(command*19) < 50) {
-				        fbauton(command * 19, oppset);
-              } else {
-                fbauton(60*direction, oppset);
-              }
-				   }
-			} else {
-        break;
+    if (fabs(command) > maxSpeed) {
+      if (command < 0) {
+        fbauton(-maxSpeed);
+      } else {
+        fbauton(maxSpeed);
       }
+    } else {
+      fbauton(command, 0);
+    }
 
     average = (leftEncoder.get_value() + rightEncoder.get_value()) / 2;
 
@@ -90,7 +83,7 @@ void driveStraight(double input, double thatDelay) {
 
     timer++;
     delay(10);
-    odom2();
+  //  odom2();
   }
 
   correctionAmount = 0;

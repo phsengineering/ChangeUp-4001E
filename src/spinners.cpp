@@ -30,9 +30,11 @@ void flipout() {
 
 void score() {
   driveFor(700, 75);
-  rollerHandler(-100);
-  delay(500);
-  rollerHandler(0);
+  rollerT.move_voltage(-12000);
+  rollerB.move_voltage(-12000);
+  delay(1000);
+  rollerT.move_voltage(0);
+  rollerB.move_voltage(0);
 
 /*  intakeHandler(-12000);
   driveFor(700, 75);
