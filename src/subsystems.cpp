@@ -29,14 +29,13 @@ void normalDrive(int y, int x) {
   driveLB.move_voltage(y - x);
 }
 
-void fbauton(double y, double x) {
+void fbauton(double y) {
   y *= 11000.0 / 127.0;
-  x *= 11000.0 / -127.0;
 
-  driveRF.move_voltage(y + x);
-  driveRB.move_voltage(y + x);
-  driveLF.move_voltage(y - x);
-  driveLB.move_voltage(y - x);
+  driveRF.move_voltage(y/1.03);
+  driveRB.move_voltage(y/1.03);
+  driveLF.move_voltage(y/1.00);
+  driveLB.move_voltage(y/1.00);
 }
 
 void autonTurn(double y) {
