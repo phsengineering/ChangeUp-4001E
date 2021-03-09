@@ -12,21 +12,7 @@ void initialize() {
 		mainController.set_text(0, 0, "where's gabe");
 
 		thatIMU.reset();
-
-	  double time = pros::millis();
-	  double iter = 0;
-
-	  while (thatIMU.is_calibrating()) {
-	    printf("IMU calibrating... %d\n", iter);
-			std::string s = std::to_string(1.98-(iter/1000));
-			pros::lcd::set_text(3, s);
-	    iter += 10;
-	    pros::delay(10);
-	  }
-	  printf("IMU is done calibrating (took %d ms)\n", iter - time);
-
-			  thatIMU.reset();
-
+		thatIMU2.reset();
 }
 
 
@@ -100,7 +86,7 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			normalDrive(analogY, analogX);
-		//	odom(true);
+
 			delay(10);
 		}
 

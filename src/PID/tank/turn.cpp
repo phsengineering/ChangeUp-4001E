@@ -18,13 +18,16 @@ void turnAngle(double degreeInput, double thatDelay) {
 		printf(" degrees\n");
 
 		double angle;
-		
+
 		angle = degreeInput * 1;
 
 		bool displayValues = true;
 		bool driveMotors = true;
 
-    double TARGET = (thatIMU.get_rotation()) + angle;
+		double imu1 = thatIMU.get_rotation();
+		double imu2 = thatIMU2.get_rotation();
+
+    double TARGET = ((imu1 + imu2) / 2) + angle;
 
     double currentValue = thatIMU.get_rotation();
     double currentError = TARGET - currentValue;

@@ -18,6 +18,7 @@ Motor rollerT(3, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 double timer = 0;
 
 pros::Imu thatIMU(1);
+pros::Imu thatIMU2(11);
 
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;

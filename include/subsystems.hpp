@@ -35,6 +35,7 @@ extern Motor rollerT;
 extern Motor rollerB;
 
 extern Imu thatIMU;
+extern Imu thatIMU2;
 
 extern ADIEncoder leftEncoder;
 extern ADIEncoder rightEncoder;
