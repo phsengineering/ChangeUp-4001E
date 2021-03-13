@@ -6,6 +6,11 @@
 using namespace pros;
 
 pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
+pros::ADIAnalogIn sensorY ('F');
+pros::ADIAnalogIn sensorX ('E');
+
+double valY;
+double valX;
 
 void initialize() {
 		init();
@@ -42,7 +47,9 @@ int wireless = 0;
 
 void opcontrol() {
 	while(true) {
-
+		if (driveRF.is_over_temp() || driveRB.is_over_temp() || driveLF.is_over_temp() || driveLB.is_over_temp()) {
+			mainController.rumble(". -");
+		}
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
 			rollerT.move_voltage(-12000);
 			rollerB.move_voltage(-12000);
@@ -73,6 +80,7 @@ void opcontrol() {
 
 		if(mainController.get_digital(DIGITAL_UP)) {
 		  rollerB.move_voltage(-12000);
+			rollerT.move_voltage(-12000*0.95);
 		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {
@@ -86,8 +94,28 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4 ), analogX); // make turning less sensitive than driving forward or backwards
 			}
 			normalDrive(analogY, analogX);
+	/*		double previousY = valY;
+			double previousX = valX;
+			valY = ((sensorY.get_value()-15) / 10.6299) - 127;
+			valX = ((sensorX.get_value()-15) / 10.6299) - 127;
 
-			delay(10);
+			if (fabs(valY) <= 50) {
+				valY = 0;
+			}
+			if (fabs(valY - previousY) <= 10) {
+				valY = previousY;
+			}
+
+			if (fabs(valX) <= 50) {
+				valX = 0;
+			}
+			if (fabs(valX - previousX) <= 10) {
+				valX = previousX;
+			}
+			normalDrive(valY, valX);
+
+			printf("   target: %lf\n", valX); */
+			delay(50);
 		}
 
 }

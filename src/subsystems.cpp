@@ -22,7 +22,7 @@ pros::Imu thatIMU2(11);
 
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;
-  x *= 11000.0 / -127.0;
+  x *= (11000.0 / -127.0) /1.2;
 
   driveRF.move_voltage((y + x)/1);
   driveRB.move_voltage((y + x)/1);
@@ -33,8 +33,8 @@ void normalDrive(int y, int x) {
 void fbauton(double y) {
   y *= 11000.0 / 127.0;
 
-  driveRF.move_voltage(y/1.03);
-  driveRB.move_voltage(y/1.03);
+  driveRF.move_voltage(y/1.00);
+  driveRB.move_voltage(y/1.00);
   driveLF.move_voltage(y/1.00);
   driveLB.move_voltage(y/1.00);
 }
