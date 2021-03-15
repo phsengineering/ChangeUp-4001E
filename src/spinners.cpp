@@ -32,7 +32,7 @@ void score() {
   driveFor(700, 75);
   rollerT.move_voltage(-12000);
   rollerB.move_voltage(-12000);
-  delay(1000);
+  delay(500);
   rollerT.move_voltage(0);
   rollerB.move_voltage(0);
 
@@ -49,4 +49,19 @@ void score() {
   delay(1200);
   topRoller(0);
   midRollers(0); */
+}
+
+void score2() {
+  driveFor(700, 75);
+  delay(200);
+  rollerB.move_voltage(-12000);
+  rollerT.move_voltage(-12000);
+  delay(650);
+  rollerB.move_voltage(12000);
+  rollerT.move_voltage(12000);
+  delay(500);
+  rollerB.move_voltage(-12000);
+  rollerT.move_voltage(-12000);
+  delay(500);
+  rollerHandler(0);
 }

@@ -61,13 +61,14 @@ void opcontrol() {
 			rollerB.move_voltage(0);
 		}
 
+int offset = 1.5;
 
 		if (mainController.get_digital(DIGITAL_R1)) {
-			intakeL.move_voltage(12000);
-			intakeR.move_voltage(12000);
+			intakeL.move_voltage(12000 / offset);
+			intakeR.move_voltage(12000 / offset);
 		} else if (mainController.get_digital(DIGITAL_R2)) {
-			intakeL.move_voltage(-12000);
-			intakeR.move_voltage(-12000);
+			intakeL.move_voltage(-12000 / offset);
+			intakeR.move_voltage(-12000 / offset);
 		} else {
 			intakeL.move_voltage(0);
 			intakeR.move_voltage(0);
@@ -78,10 +79,6 @@ void opcontrol() {
 		  autonHandler();
 		}
 
-		if(mainController.get_digital(DIGITAL_UP)) {
-		  rollerB.move_voltage(-12000);
-			rollerT.move_voltage(-12000*0.95);
-		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {
 		  flipout();

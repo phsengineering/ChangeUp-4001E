@@ -22,6 +22,7 @@ void fbauton(double y);
 void score();
 void flipout();
 void rollerHandler(double power);
+void score2();
 
 extern Motor driveRF;
 extern Motor driveRB;

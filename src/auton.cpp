@@ -5,12 +5,12 @@
 
 using namespace pros;
 
-double delayBetween = 400;
+double delayBetween = 100;
 
 void autonHandler() {
   flipout();
   intakeHandler(-12000);
-  driveStraight(32.75, delayBetween); // drive to first ball on edge of tile
+  driveStraight(34.5, delayBetween); // drive to first ball on edge of tile
 
   intakeHandler(0);
   turnAngle(68, delayBetween); // turn towards goal
@@ -18,15 +18,15 @@ void autonHandler() {
   driveStraight(13, 0); // drive towards goal
   score(); //[A1]
 
-  driveStraight(-8, delayBetween); //back up from goal
+  driveStraight(-8, delayBetween+50); //back up from goal
   rollerHandler(0);
   intakeHandler(0);
 
 
-  turnAngle(-165.5, delayBetween); // turn towards next ball
+  turnAngle(-163.5, delayBetween); // turn towards next ball
   intakeHandler(-12000);
 
-  driveStraight(55.5, delayBetween); // drive towards next ball while intaking
+  driveStraight(56, delayBetween); // drive towards next ball while intaking
 
   turnAngle(113, delayBetween);
 
@@ -35,18 +35,7 @@ void autonHandler() {
   driveStraight(25.5, delayBetween);
   intakeHandler(0);
 
-  driveFor(700, 75);
-  delay(200);
-  rollerB.move_voltage(-12000);
-  rollerT.move_voltage(-12000);
-  delay(650);
-  rollerB.move_voltage(12000);
-  rollerT.move_voltage(12000);
-  delay(500);
-  rollerB.move_voltage(-12000);
-  rollerT.move_voltage(-12000);
-  delay(700);
-  rollerHandler(0);
+  score2();
 //  score(); //[A2]
 
   driveStraight(-18.5, delayBetween); // back up from goal
@@ -66,20 +55,7 @@ void autonHandler() {
 
   driveStraight(15, delayBetween);
 
-  driveFor(700, 75);
-  delay(200);
-  rollerB.move_voltage(-12000);
-  rollerT.move_voltage(-12000);
-  delay(650);
-  rollerB.move_voltage(12000);
-  rollerT.move_voltage(12000);
-  delay(500);
-  rollerB.move_voltage(-12000);
-  rollerT.move_voltage(-12000);
-  delay(700);
-  rollerHandler(0);
-
-//  score(); //[A3]
+  score(); //[A3]
 
   driveStraight(-15, delayBetween);
 
@@ -93,22 +69,12 @@ void autonHandler() {
 
   driveStraight(20, delayBetween);
 
-  driveFor(700, 75);
-  delay(200);
-  rollerB.move_voltage(-12000);
-  rollerT.move_voltage(-12000);
-  delay(650);
-  rollerB.move_voltage(12000);
-  rollerT.move_voltage(12000);
-  delay(500);
-  rollerB.move_voltage(-12000);
-  rollerT.move_voltage(-12000);
-  delay(700);
+  score2();
   rollerHandler(0);
 
   driveStraight(-15, delayBetween);
 
-  turnAngle(90, delayBetween);
+  turnAngle(-90, delayBetween);
 
   intakeHandler(-12000);
   driveStraight(30, delayBetween);
