@@ -19,13 +19,8 @@ void intakeHandler(double power) {
 
 void flipout() {
   intakeL.move_voltage(-12000);
-  intakeR.move_voltage(-12000);
-  delay(350);
+  delay(100);
   intakeL.move_voltage(0);
-  intakeR.move_voltage(0);
-  rollerT.move_voltage(-12000);
-  delay(1000);
-  rollerT.move_voltage(0);
 }
 
 void score() {
