@@ -37,7 +37,7 @@ void driveStraight(double input, double thatDelay) {
   double kD  =  20.5;
 
 	double acceptableError = 0.0;
-  double maxNumberOfCorrections = 50;
+  double maxNumberOfCorrections = 75;
 
   double maxSpeed = 80;
   double minSpeed = 16;

@@ -19,15 +19,14 @@ void intakeHandler(double power) {
 
 void flipout() {
   intakeL.move_voltage(-12000);
-  delay(100);
+  delay(250);
   intakeL.move_voltage(0);
 }
 
 void score() {
-  driveFor(700, 75);
   rollerT.move_voltage(-12000);
   rollerB.move_voltage(-12000);
-  delay(500);
+  delay(650);
   rollerT.move_voltage(0);
   rollerB.move_voltage(0);
 
@@ -47,16 +46,14 @@ void score() {
 }
 
 void score2() {
-  driveFor(700, 75);
-  delay(200);
   rollerB.move_voltage(-12000);
   rollerT.move_voltage(-12000);
-  delay(650);
+  delay(550);
   rollerB.move_voltage(12000);
   rollerT.move_voltage(12000);
-  delay(500);
+  delay(650);
   rollerB.move_voltage(-12000);
   rollerT.move_voltage(-12000);
-  delay(500);
+  delay(600);
   rollerHandler(0);
 }
