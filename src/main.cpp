@@ -6,8 +6,13 @@
 using namespace pros;
 
 pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
+pros::Vision vision_sensor (12);
 pros::ADIAnalogIn sensorY ('F');
 pros::ADIAnalogIn sensorX ('E');
+
+#define NUM_VISION_OBJECTS 4
+
+vision_object_s_t object_arr[NUM_VISION_OBJECTS];
 
 double valY;
 double valX;
@@ -47,21 +52,42 @@ int wireless = 0;
 
 void opcontrol() {
 	while(true) {
+		vision_sensor.read_by_size(0, NUM_VISION_OBJECTS, object_arr);
 		if (driveRF.is_over_temp() || driveRB.is_over_temp() || driveLF.is_over_temp() || driveLB.is_over_temp()) {
 			mainController.rumble(". -");
 		}
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-			rollerT.move_voltage(-12000);
+			if (object_arr[0].height >= 50 && object_arr[0].width >= 50 && object_arr[0].signature == 1) {
+				rollerT.move_voltage(12000);
+				rollerB.move_voltage(12000);
+				delay(750);
+			} else {
+			  rollerT.move_voltage(-12000);
+				rollerB.move_voltage(-12000);
+			}
 			rollerB.move_voltage(-12000);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
 			rollerT.move_voltage(12000);
 			rollerB.move_voltage(12000);
 		} else {
-			rollerT.move_voltage(0);
-			rollerB.move_voltage(0);
+			if (mainController.get_digital(DIGITAL_UP)) {
+				rollerT.move_voltage(-12000);
+				rollerB.move_voltage(-12000);
+			} else {
+				rollerT.move_voltage(0);
+				rollerB.move_voltage(0);
+			}
 		}
 
-int offset = 1.5;
+		if (mainController.get_digital(DIGITAL_UP)) {
+			rollerT.move_voltage(-12000);
+			rollerB.move_voltage(-12000);
+		} else {
+		//	rollerT.move_voltage(0);
+		//	rollerB.move_voltage(0);
+		}
+
+double offset = 1.5;
 
 		if (mainController.get_digital(DIGITAL_R1)) {
 			intakeL.move_voltage(12000 / offset);
@@ -112,7 +138,7 @@ int offset = 1.5;
 			normalDrive(valY, valX);
 
 			printf("   target: %lf\n", valX); */
-			delay(50);
+			delay(0);
 		}
 
 }
