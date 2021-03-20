@@ -47,6 +47,7 @@ void driveStraight(double input, double thatDelay) {
     maxSpeed = 80;
   }
 
+
   double minSpeed = 16;
 
   double speedCorrection = 4;

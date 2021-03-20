@@ -8,13 +8,14 @@ using namespace pros;
 double delayBetween = 100;
 
 void autonHandler() {
+
   flipout();
   delay(500);
   intakeHandler(-12000);
-  driveStraight(34.75, delayBetween); // drive to first ball on edge of tile
+  driveStraight(34.6, delayBetween); // drive to first ball on edge of tile
 
   intakeHandler(0);
-  turnAngle(68, delayBetween); // turn towards goal
+  turnAngle(67.35, delayBetween); // turn towards goal
 
   driveFor(700, 65);
   score(); //[A1]
@@ -23,16 +24,16 @@ void autonHandler() {
   rollerHandler(0);
   intakeHandler(0);
 
-  turnAngle(-163.5, delayBetween); // turn towards next ball
+  turnAngle(-165, delayBetween); // turn towards next ball
   intakeHandler(-12000);
 
-  driveStraight(55.85, delayBetween); // drive towards next ball while intaking
+  driveStraight(54.25, delayBetween); // drive towards next ball while intaking
 
-  turnAngle(109.75, delayBetween);
+  turnAngle(109.5, delayBetween);
 
   delay(50);
   //rollerB.move_velocity(-12000);
-  driveStraight(24.5, delayBetween);
+  driveStraight(23, delayBetween);
   intakeHandler(0);
 
   driveFor(700, 65);
@@ -41,7 +42,7 @@ void autonHandler() {
 
   driveStraight(-18.5, delayBetween); // back up from goal
 
-  turnAngle(-92, delayBetween); //turn towards next ball
+  turnAngle(-91.1, delayBetween); //turn towards next ball
 
   intakeHandler(-12000);
   rollerT.move_voltage(0);
@@ -50,50 +51,47 @@ void autonHandler() {
 
   intakeHandler(0);
 
-  driveStraight(-11.75, delayBetween);
+  driveStraight(-15.0, delayBetween);
 
-  turnAngle(42.5, delayBetween);
+  turnAngle(45, delayBetween);
 
-  driveStraight(15, delayBetween);
+  driveStraight(18.5, delayBetween);
 
   driveFor(700, 65);
   score(); //[A3]
 
   driveStraight(-15, delayBetween);
 
-  turnAngle(-160, delayBetween);
+  turnAngle(-163.5, delayBetween);
 
   intakeHandler(-12000);
   driveStraight(56, delayBetween);
 
   intakeHandler(0);
 
-  driveStraight(-8.5, delayBetween);
+  driveStraight(-9, delayBetween);
 
-  turnAngle(100, delayBetween);
+  turnAngle(105, delayBetween);
 
   driveStraight(20, delayBetween);
 
   driveFor(700, 65);
-  score2();
+  score(); //[B3]
 
-  driveStraight(-15, delayBetween);
+  driveStraight(-10, delayBetween);
 
-  turnAngle(-90, delayBetween);
+  turnAngle(-87, delayBetween);
 
   intakeHandler(-12000);
-  driveStraight(30, delayBetween);
+  driveStraight(43, delayBetween);
 
   intakeHandler(0);
-  turnAngle(45, delayBetween);
+  turnAngle(25, delayBetween);
 
-  driveStraight(10, delayBetween);
+  driveStraight(7, delayBetween);
 
   driveFor(700, 75);
   score(); //[C3]
-
-  driveStraight(-20, delayBetween);
-
   /*
   intakeHandler(12000);
 

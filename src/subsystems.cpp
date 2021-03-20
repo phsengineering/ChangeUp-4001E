@@ -35,8 +35,8 @@ void fbauton(double y) {
 
   driveRF.move_voltage(y/1.00);
   driveRB.move_voltage(y/1.00);
-  driveLF.move_voltage(y/1.00);
-  driveLB.move_voltage(y/1.00);
+  driveLF.move_voltage(y/1.04);
+  driveLB.move_voltage(y/1.04);
 }
 
 void autonTurn(double y) {
