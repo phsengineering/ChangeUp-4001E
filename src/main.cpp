@@ -8,7 +8,9 @@ using namespace pros;
 pros::Controller mainController = Controller(E_CONTROLLER_MASTER);
 pros::Vision vision_sensor (12);
 pros::ADIAnalogIn sensorY ('F');
-pros::ADIAnalogIn sensorX ('E');
+//pros::ADIAnalogIn sensorX ('E');
+
+pros::ADIAnalogOut flashlight ('E');
 
 #define NUM_VISION_OBJECTS 4
 
@@ -19,7 +21,6 @@ double valX;
 
 void initialize() {
 		init();
-		mainController.set_text(0, 0, "where's gabe");
 
 		thatIMU.reset();
 		thatIMU2.reset();
@@ -49,21 +50,26 @@ void autonomous() {
 }
 
 int wireless = 0;
+int count = 0;
+int globalCount = 0;
 
 void opcontrol() {
 	while(true) {
+		flashlight.set_value(999999);
 		vision_sensor.read_by_size(0, NUM_VISION_OBJECTS, object_arr);
 		if (driveRF.is_over_temp() || driveRB.is_over_temp() || driveLF.is_over_temp() || driveLB.is_over_temp()) {
-			mainController.rumble(". -");
+			mainController.rumble("- .");
 		}
 		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
-			if (object_arr[0].height >= 50 && object_arr[0].width >= 50 && object_arr[0].signature == 1) {
+			if (object_arr[0].height >= 80 && object_arr[0].width >= 80 && object_arr[0].signature == 1 && count <= 750) {
+				delay(50);
 				rollerT.move_voltage(12000);
 				rollerB.move_voltage(12000);
-				delay(750);
+				count++;
 			} else {
 			  rollerT.move_voltage(-12000);
 				rollerB.move_voltage(-12000);
+				count = 0;
 			}
 			rollerB.move_voltage(-12000);
 		} else if (mainController.get_digital(DIGITAL_L1)) {
@@ -138,7 +144,14 @@ double offset = 1.5;
 			normalDrive(valY, valX);
 
 			printf("   target: %lf\n", valX); */
-			delay(0);
+		//	driveLF.get_temperature()
+		if (globalCount == 1000) {
+			std::string temp = std::to_string(driveLF.get_temperature());
+			mainController.set_text(0, 0, temp.c_str());
+			globalCount = 0;
+		}
+			delay(1);
+			globalCount++;
 		}
 
 }

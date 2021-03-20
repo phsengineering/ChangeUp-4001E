@@ -32,7 +32,7 @@ void autonHandler() {
 
   delay(50);
   //rollerB.move_velocity(-12000);
-  driveStraight(25.5, delayBetween);
+  driveStraight(24.5, delayBetween);
   intakeHandler(0);
 
   driveFor(700, 65);
