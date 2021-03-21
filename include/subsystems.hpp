@@ -23,6 +23,7 @@ void score();
 void flipout();
 void rollerHandler(double power);
 void score2();
+void okapiDrive();
 
 extern Motor driveRF;
 extern Motor driveRB;

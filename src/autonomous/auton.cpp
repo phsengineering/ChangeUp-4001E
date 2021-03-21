@@ -7,8 +7,11 @@ using namespace pros;
 
 void autonHandler() {
 
+  okapiDrive();
+
+/*
   flipout();
   delay(500);
   intakeHandler(-12000);
-
+*/
 }
