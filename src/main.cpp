@@ -6,11 +6,10 @@
 using namespace pros;
 
 Controller mainController = Controller(E_CONTROLLER_MASTER);
+
 Vision vision_sensor (12);
 
-#define NUM_VISION_OBJECTS 4
-
-vision_object_s_t object_arr[NUM_VISION_OBJECTS];
+vision_object_s_t object_arr[4];
 
 void initialize() {init();}
 
@@ -27,11 +26,8 @@ double intakeOffset = 1.5;
 
 void opcontrol() {
 	while(true) {
-		vision_sensor.read_by_size(0, NUM_VISION_OBJECTS, object_arr);
-		if (driveRF.is_over_temp() || driveRB.is_over_temp() || driveLF.is_over_temp() || driveLB.is_over_temp()) {
-			mainController.rumble("- .");
-		}
-		if(mainController.get_digital(DIGITAL_L2)){ //mid tower
+		vision_sensor.read_by_size(0, 4, object_arr);
+		if(mainController.get_digital(DIGITAL_L2)){
 			if (object_arr[0].height >= 80 && object_arr[0].width >= 80 && object_arr[0].signature == 1 && visionCount <= 750) {
 				delay(50);
 				rollerT.move_voltage(12000);
@@ -88,6 +84,9 @@ void opcontrol() {
 		normalDrive(analogY, analogX);
 
 		if (globalCount == 1000) {
+			if (driveRF.is_over_temp() || driveRB.is_over_temp() || driveLF.is_over_temp() || driveLB.is_over_temp()) {
+				mainController.rumble("- .");
+			}
 			std::string temp = std::to_string(driveLF.get_temperature());
 			mainController.set_text(0, 0, temp.c_str());
 			globalCount = 0;
