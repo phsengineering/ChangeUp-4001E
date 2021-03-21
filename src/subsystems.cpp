@@ -17,6 +17,12 @@ Motor rollerT(3, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 double timer = 0;
 
+ADIAnalogIn sensorY ('F');
+ADIAnalogIn sensorX ('E');
+
+double valY;
+double valX;
+
 pros::Imu thatIMU(1);
 pros::Imu thatIMU2(11);
 
@@ -63,7 +69,6 @@ void driveFor(double seconds, double power) {
   stopAllDrive();
 }
 
-
 void stopAllDrive() {
   driveLF.move_velocity(0);
   driveRF.move_velocity(0);
@@ -78,7 +83,32 @@ void tareAll() {
   driveRB.tare_position();
 }
 
+void wireless() {
+  double previousX = valX;
+  double previousY = valY;
+  valY = ((sensorY.get_value()-15) / 10.6299) - 127;
+  valX = ((sensorX.get_value()-15) / 10.6299) - 127;
+
+  if (fabs(valY) <= 50) {
+    valY = 0;
+  }
+  if (fabs(valY - previousY) <= 10) {
+    valY = previousY;
+  }
+
+  if (fabs(valX) <= 50) {
+    valX = 0;
+  }
+  if (fabs(valX - previousX) <= 10) {
+    valX = previousX;
+  }
+  normalDrive(valY, valX);
+  printf("   target: %lf\n", valX);
+}
+
 void init() {
+  thatIMU.reset();
+  thatIMU2.reset();
   pros::lcd::initialize();
   pros::lcd::set_text(1, "4001E");
 
