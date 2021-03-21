@@ -20,6 +20,10 @@ double timer = 0;
 ADIAnalogIn sensorY ('F');
 ADIAnalogIn sensorX ('E');
 
+ADIEncoder rightEncoder ('G', 'H', false);
+ADIEncoder middleEncoder ('A', 'B', false);
+ADIEncoder leftEncoder ('D', 'C', true);
+
 double valY;
 double valX;
 

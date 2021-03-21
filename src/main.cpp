@@ -12,13 +12,13 @@ Vision vision_sensor (12);
 
 vision_object_s_t object_arr[NUM_VISION_OBJECTS];
 
-void initialize() { init(); }
+void initialize() {init();}
 
 void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous() {	autonHandler(); }
+void autonomous() {autonHandler();}
 
 int	visionCount = 0,
 		globalCount = 0;
