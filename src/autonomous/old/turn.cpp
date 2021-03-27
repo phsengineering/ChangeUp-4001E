@@ -27,7 +27,7 @@ void turnAngle(double degreeInput, double thatDelay) {
 		double imu1 = thatIMU.get_rotation();
 		double imu2 = thatIMU2.get_rotation();
 
-    double TARGET = ((imu1 + imu2) / 2) + angle * 1.02;
+    double TARGET = ((imu1 + imu2) / 2) + angle * 1.022;
 
     double currentValue = thatIMU.get_rotation();
     double currentError = TARGET - currentValue;
@@ -37,17 +37,16 @@ void turnAngle(double degreeInput, double thatDelay) {
 
     double kP  =  0.03; //100
     double kI  =  0.0;
-    double kD  =  0.18; //20
+    double kD  =  0.2; //20
 
 		double acceptableError = 0.000; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 80; // max number of small corrections allowed to make at the end of turn 200
+		double maxNumberOfCorrections = 100; // max number of small corrections allowed to make at the end of turn 200
 
 		double correctionAmount = 0;
-    double maxRate = 90;
 
-		double commandOffset = 2750;
-		double commandMax = 65;
-		double commandSmallCorrection = 18;
+		double commandOffset = 24500;
+		double commandMax = 75;
+		double commandSmallCorrection = 21;
 
     while(fabs(currentError) > acceptableError && correctionAmount < maxNumberOfCorrections) {
 
@@ -58,7 +57,7 @@ void turnAngle(double degreeInput, double thatDelay) {
         double command = p + i + d;
 
 				if (driveMotors == true) {
-						if (fabs(command) < 0.1) {
+						if (fabs(command) < 0.6) {
 							if (correctionAmount < maxNumberOfCorrections) {
 								if (command > 0) {
 									autonTurn(commandSmallCorrection);
@@ -89,11 +88,6 @@ void turnAngle(double degreeInput, double thatDelay) {
 				}
 
         pros::delay(10);
-
-        if(accel) {
-            if(maxRate < 120)
-            maxRate += 10;
-        }
 
         currentValue = thatIMU.get_rotation();
         previousError = currentError;

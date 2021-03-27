@@ -9,7 +9,7 @@ double delayBetween = 100;
 
 void autonHandler() {
 
-  driveStraight(24, 0);
+  turnAngle(90, 0);
 
   /*flipout();
   delay(500);
