@@ -39,8 +39,8 @@ void turnAngle(double degreeInput, double thatDelay) {
     double kI  =  0.0;
     double kD  =  0.2; //20
 
-		double acceptableError = 0.000; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 100; // max number of small corrections allowed to make at the end of turn 200
+		double acceptableError = 0.0; // how close the encoder values have to be to the desired amount to stop the while loop
+		double maxNumberOfCorrections = 125; // max number of small corrections allowed to make at the end of turn 200
 
 		double correctionAmount = 0;
 
