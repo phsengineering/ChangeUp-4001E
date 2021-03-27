@@ -17,8 +17,8 @@ Motor rollerT(3, E_MOTOR_GEARSET_06, false, E_MOTOR_ENCODER_ROTATIONS);
 
 double timer = 0;
 
-ADIAnalogIn sensorY ('F');
-ADIAnalogIn sensorX ('E');
+ADIAnalogIn sensorY ('X');
+ADIAnalogIn sensorX ('Z');
 
 ADIEncoder rightEncoder ('G', 'H', false);
 ADIEncoder middleEncoder ('A', 'B', false);
@@ -47,6 +47,15 @@ void fbauton(double y) {
   driveRB.move_voltage(y/1.00);
   driveLF.move_voltage(y/1.04);
   driveLB.move_voltage(y/1.04);
+}
+
+void fbautonBACK(double y) {
+  y *= 11000.0 / 127.0;
+
+  driveRF.move_voltage(y/1.00);
+  driveRB.move_voltage(y/1.00);
+  driveLF.move_voltage(y/1.03);
+  driveLB.move_voltage(y/1.03);
 }
 
 void autonTurn(double y) {

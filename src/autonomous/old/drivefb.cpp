@@ -21,7 +21,7 @@ void driveStraight(double input, double thatDelay) {
   rightEncoder.reset();
   middleEncoder.reset();
 
-  double distance = ((input / 8) * 360);
+  double distance = (((input / 8) * 360) + 1) / 1.1;
 
   //double average = (fabs(driveRF.get_position()) + fabs(driveRB.get_position()) + fabs(driveLF.get_position()) + fabs(driveLB.get_position())) / 4;
   double average = leftEncoder.get_value() + rightEncoder.get_value() / 2;
@@ -32,25 +32,25 @@ void driveStraight(double input, double thatDelay) {
   double currentError = TARGET - currentValue;
   double previousError = 0;
 
-  double kP  =  0.75;
-  double kI  =  13;
-  double kD  =  20.5;
+  double kP  =  0.2;
+  double kI  =  0;
+  double kD  =  1;
 
 	double acceptableError = 0.0;
-  double maxNumberOfCorrections = 75;
+  double maxNumberOfCorrections = 50;
 
   double maxSpeed;
 
   if (input < 0) {
-    maxSpeed = 60;
+    maxSpeed = 50;
   } else {
     maxSpeed = 80;
   }
 
 
-  double minSpeed = 16;
+  double minSpeed = 18;
 
-  double speedCorrection = 4;
+  double speedCorrection = 1;
 
   bool driveMotors = true;
   bool displayValues = true;
@@ -69,14 +69,14 @@ void driveStraight(double input, double thatDelay) {
 
     if (fabs(command) > maxSpeed) {
       if (command < 0) {
-        fbauton(-maxSpeed);
+        fbautonBACK(-maxSpeed);
       } else {
         fbauton(maxSpeed);
       }
     } else if (fabs(command) < minSpeed) {
       if (correctionAmount < maxNumberOfCorrections) {
         if (command < 0) {
-          fbauton(-minSpeed);
+          fbautonBACK(-minSpeed);
         } else {
           fbauton(minSpeed);
         }
@@ -85,7 +85,11 @@ void driveStraight(double input, double thatDelay) {
         break;
       }
     } else {
-      fbauton(command);
+      if (command < 0) {
+        fbauton(command);
+      } else {
+        fbauton(command);
+      }
     }
 
     average = (leftEncoder.get_value() + rightEncoder.get_value()) / 2;

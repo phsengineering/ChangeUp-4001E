@@ -19,11 +19,13 @@ void autonHandler();
 void driveStraight(double distance, double thatDelay);
 void turnAngle(double degreeInput, double thatDelay);
 void fbauton(double y);
+void fbautonBACK(double y);
 void score();
 void flipout();
 void rollerHandler(double power);
 void score2();
 void okapiDrive();
+void okapiPath();
 
 extern Motor driveRF;
 extern Motor driveRB;
