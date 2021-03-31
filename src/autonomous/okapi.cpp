@@ -40,6 +40,7 @@ std::shared_ptr<AsyncMotionProfileController> profileController =
 
 void okapiDrive() {
   chassis->setState({0_in, 0_in, 0_deg});
+  chassis->waitUntilSettled();
   chassis->turnAngle(90_deg);
 }
 

@@ -17,7 +17,7 @@ void midRollers(double power);
 void topRoller(double power);
 void autonHandler();
 void driveStraight(double distance, double thatDelay);
-void turnAngle(double degreeInput, double thatDelay);
+void turnTest(double degreeInput, double thatDelay);
 void fbauton(double y);
 void fbautonBACK(double y);
 void score();

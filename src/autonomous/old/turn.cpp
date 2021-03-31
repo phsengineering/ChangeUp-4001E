@@ -5,7 +5,7 @@
 using namespace pros;
 
 
-void turnAngle(double degreeInput, double thatDelay) {
+void turnTest(double degreeInput, double thatDelay) {
 
 		driveLF.tare_position();
 		driveRF.tare_position();
@@ -40,12 +40,12 @@ void turnAngle(double degreeInput, double thatDelay) {
     double kD  =  0.2; //20
 
 		double acceptableError = 0.0; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 125; // max number of small corrections allowed to make at the end of turn 200
+		double maxNumberOfCorrections = 75; // max number of small corrections allowed to make at the end of turn 200
 
 		double correctionAmount = 0;
 
 		double commandOffset = 24500;
-		double commandMax = 75;
+		double commandMax = 80;
 		double commandSmallCorrection = 21;
 
     while(fabs(currentError) > acceptableError && correctionAmount < maxNumberOfCorrections) {

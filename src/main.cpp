@@ -81,6 +81,7 @@ void opcontrol() {
 		if(std::abs(analogY) < 16) {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4), analogX); // make turning less sensitive than driving forward or backwards
 		}
+		printf(" %lf \n", analogY);
 		normalDrive(analogY, analogX);
 
 		if (globalCount == 1000) {
