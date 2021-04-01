@@ -11,14 +11,18 @@ void autonHandler() {
   }
 }
 
-void red() {
+void red2() {
 
 }
 
-void blue() {
+void red3() {
 
 }
 
-void score1() {
+void blue2() {
+
+}
+
+void blue3() {
 
 }

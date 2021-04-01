@@ -125,11 +125,16 @@ int current = -1;
 
 std::string autons[6] =
 {
- "Red Left",
- "Red Right",
- "Blue Left",
- "Blue Right",
- "Just Score 1",
+ "Red Left [Corner/Side]",
+ "Red Left [Corner/Side/Middle]",
+ "Red Right [Corner/Side]",
+ "Red Right [Corner/Side/Middle]",
+ "Red Just Score 1",
+ "Blue Left [Corner/Side]",
+ "Blue Left [Corner/Side/Middle]",
+ "Blue Right [Corner/Side]",
+ "Blue Right [Corner/Side/Middle]",
+ "Blue Just Score 1",
  "Prog Skills"
 };
 
@@ -141,8 +146,8 @@ void on_center_button() {
     if (current == 6) {
       current = 0;
     }
-    mainController.set_text(0, 0, autons[current];
   	lcd::set_text(3, autons[current]); // replace with pros lcd print // replace with pros lcd print
+    mainController.set_text(0, 0, autons[current]);
 }
 
 void init() {
