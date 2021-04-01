@@ -47,7 +47,6 @@ extern ADIEncoder rightEncoder;
 extern ADIEncoder middleEncoder;
 
 extern Controller mainController;
-/*
-extern std::string autons;
+
+extern std::string autons[6];
 extern int current;
-*/

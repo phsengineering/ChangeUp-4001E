@@ -67,7 +67,7 @@ void opcontrol() {
 		}
 
 		if(mainController.get_digital(DIGITAL_A)) {
-
+			autonHandler();
 		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {
@@ -86,7 +86,7 @@ void opcontrol() {
 				mainController.rumble("- .");
 			}
 			std::string temp = std::to_string(driveLF.get_temperature());
-			mainController.set_text(0, 0, temp.c_str());
+			//mainController.set_text(0, 0, temp.c_str());
 			globalCount = 0;
 		}
 			delay(1);

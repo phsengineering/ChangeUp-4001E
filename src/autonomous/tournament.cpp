@@ -6,7 +6,9 @@
 using namespace pros;
 
 void autonHandler() {
-//  printf("this auton: %lf\n", autons[current]);
+  if (autons[current] == "Red Left") {
+    printf("this auton: true");
+  }
 }
 
 void red() {

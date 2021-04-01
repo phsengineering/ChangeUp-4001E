@@ -121,8 +121,7 @@ void wireless() {
   printf("   target: %lf\n", valX);
 }
 
-int current;
-int first = 0;
+int current = -1;
 
 std::string autons[6] =
 {
@@ -138,16 +137,12 @@ std::string autons[6] =
 void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
-		if (first == 0) {
-      lcd::set_text(3, autons[0]); // replace with pros lcd print
-      first = 1;
-    } else {
-      current++;
-      if (current == 6) {
-        current = 0;
-      }
+    current++;
+    if (current == 6) {
+      current = 0;
+    }
+    mainController.set_text(0, 0, autons[current];
   	lcd::set_text(3, autons[current]); // replace with pros lcd print // replace with pros lcd print
-  }
 }
 
 void init() {

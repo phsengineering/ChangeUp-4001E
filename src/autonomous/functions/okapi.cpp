@@ -16,11 +16,12 @@ std::shared_ptr<okapi::OdomChassisController> chassis = ChassisControllerBuilder
            { 0.016, 0.000, 0.000 }, // Turn controller gains
            { 0.0000, 0.0000, 0.00000 }  // Angle controller gains
         )
+        /*
         .withSensors(
           okapi::ADIEncoder{'D', 'C', true}, // left encoder in ADI ports A & B
           okapi::ADIEncoder{'G', 'H', false},  // right encoder in ADI ports C & D (reversed)
           okapi::ADIEncoder{'A', 'B', true}  // middle encoder in ADI ports E & F
-        )
+        ) */
         //{wheel diameter, wheel track, length to middle wheel, middle wheel diameter}.
         .withDimensions(AbstractMotor::gearset::blue, {{2.75_in, 7_in, 4_in, 2.75_in}, quadEncoderTPR})
         .withOdometry()
