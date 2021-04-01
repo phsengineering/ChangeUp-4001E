@@ -5,8 +5,6 @@
 
 using namespace pros;
 
-Controller mainController = Controller(E_CONTROLLER_MASTER);
-
 Vision vision_sensor (12);
 
 vision_object_s_t object_arr[4];
@@ -69,7 +67,7 @@ void opcontrol() {
 		}
 
 		if(mainController.get_digital(DIGITAL_A)) {
-		  autonHandler();
+
 		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {
@@ -81,7 +79,6 @@ void opcontrol() {
 		if(std::abs(analogY) < 16) {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4), analogX); // make turning less sensitive than driving forward or backwards
 		}
-		printf(" %lf \n", analogY);
 		normalDrive(analogY, analogX);
 
 		if (globalCount == 1000) {

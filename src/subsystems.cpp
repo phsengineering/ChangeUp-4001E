@@ -27,8 +27,10 @@ ADIEncoder leftEncoder ('D', 'C', true);
 double valY;
 double valX;
 
-pros::Imu thatIMU(1);
-pros::Imu thatIMU2(11);
+Imu thatIMU(1);
+Imu thatIMU2(11);
+
+Controller mainController = Controller(E_CONTROLLER_MASTER);
 
 void normalDrive(int y, int x) {
   y *= 11000.0 / 127.0;
@@ -119,11 +121,45 @@ void wireless() {
   printf("   target: %lf\n", valX);
 }
 
+int current;
+int first = 0;
+
+std::string autons[6] =
+{
+ "Red Left",
+ "Red Right",
+ "Blue Left",
+ "Blue Right",
+ "Just Score 1",
+ "Prog Skills"
+};
+
+
+void on_center_button() {
+	static bool pressed = false;
+	pressed = !pressed;
+		if (first == 0) {
+      lcd::set_text(3, autons[0]); // replace with pros lcd print
+      first = 1;
+    } else {
+      current++;
+      if (current == 6) {
+        current = 0;
+      }
+  	lcd::set_text(3, autons[current]); // replace with pros lcd print // replace with pros lcd print
+  }
+}
+
 void init() {
+  lcd::initialize();
+  lcd::set_text(0, "VRC Team 4001E Change Up 2020-21");
+  lcd::set_text(6, "Press the center button below to");
+  lcd::set_text(7, "cycle through autonomous choices");
+
+  lcd::register_btn1_cb(on_center_button);
+
   thatIMU.reset();
   thatIMU2.reset();
-  pros::lcd::initialize();
-  pros::lcd::set_text(1, "4001E");
 
   printf("\033[1;31m____________/\\\\\\____        _____/\\\\\\\\\\\\\\____        _____/\\\\\\\\\\\\\\____        ______/\\\\\\_        __/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_        \033[0m\n");
   printf("\033[1;31m __________/\\\\\\\\\\____        ___/\\\\\\/////\\\\\\__        ___/\\\\\\/////\\\\\\__        __/\\\\\\\\\\\\\\_        _\\/\\\\\\///////////__       \033[0m\n");

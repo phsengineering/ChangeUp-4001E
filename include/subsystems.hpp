@@ -26,6 +26,7 @@ void rollerHandler(double power);
 void score2();
 void okapiDrive();
 void okapiPath();
+void skills();
 
 extern Motor driveRF;
 extern Motor driveRB;
@@ -44,3 +45,9 @@ extern Imu thatIMU2;
 extern ADIEncoder leftEncoder;
 extern ADIEncoder rightEncoder;
 extern ADIEncoder middleEncoder;
+
+extern Controller mainController;
+/*
+extern std::string autons;
+extern int current;
+*/

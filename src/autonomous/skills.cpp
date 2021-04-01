@@ -7,7 +7,7 @@ using namespace pros;
 
 double delayBetween = 150;
 
-void autonHandler() {
+void skills() {
   flipout();
   delay(500);
   intakeHandler(-12000);
