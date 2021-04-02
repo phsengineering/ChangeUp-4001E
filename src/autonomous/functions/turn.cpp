@@ -45,7 +45,7 @@ void turnTest(double degreeInput, double thatDelay) {
 		double correctionAmount = 0;
 
 		double commandOffset = 24500;
-		double commandMax = 80;
+		double commandMax = 140;
 		double commandSmallCorrection = 21;
 
     while(fabs(currentError) > acceptableError && correctionAmount < maxNumberOfCorrections) {

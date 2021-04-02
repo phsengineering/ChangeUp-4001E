@@ -27,6 +27,8 @@ void score2();
 void okapiDrive();
 void okapiPath();
 void skills();
+void auton2balls(bool left);
+void auton3balls(bool left);
 
 extern Motor driveRF;
 extern Motor driveRB;
@@ -48,5 +50,6 @@ extern ADIEncoder middleEncoder;
 
 extern Controller mainController;
 
-extern std::string autons[6];
+extern std::string autons[11];
 extern int current;
+extern double delayBetween;

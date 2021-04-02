@@ -28,10 +28,10 @@ void opcontrol() {
 	while(true) {
 		vision_sensor.read_by_size(0, 4, object_arr);
 		if(mainController.get_digital(DIGITAL_L2)){
-			if(current == 0 || current == 1 || current == 2 || current == 3 || current == 4) {
-				visionColor = 2;
-			} else {
+			if(current == 0 || current == 1 || current == 2 || current == 3 || current == 4 || current == -1) {
 				visionColor = 1;
+			} else {
+				visionColor = 2;
 			}
 			if (object_arr[0].height >= 80 && object_arr[0].width >= 80 && object_arr[0].signature == visionColor && visionCount <= 750) {
 				delay(50);

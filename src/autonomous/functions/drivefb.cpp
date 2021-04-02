@@ -32,7 +32,7 @@ void driveStraight(double input, double thatDelay) {
   double currentError = TARGET - currentValue;
   double previousError = 0;
 
-  double kP  =  0.2;
+  double kP  =  0.15;
   double kI  =  0;
   double kD  =  1;
 
@@ -42,9 +42,9 @@ void driveStraight(double input, double thatDelay) {
   double maxSpeed;
 
   if (input < 0) {
-    maxSpeed = 50;
+    maxSpeed = 90;
   } else {
-    maxSpeed = 80;
+    maxSpeed = 140;
   }
 
 

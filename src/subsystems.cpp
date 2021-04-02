@@ -123,7 +123,7 @@ void wireless() {
 
 int current = -1;
 
-std::string autons[6] =
+std::string autons[11] =
 {
  "Red Left [Corner/Side]",
  "Red Left [Corner/Side/Middle]",
@@ -155,6 +155,8 @@ void init() {
   lcd::set_text(0, "VRC Team 4001E Change Up 2020-21");
   lcd::set_text(6, "Press the center button below to");
   lcd::set_text(7, "cycle through autonomous choices");
+
+  lcd::set_text(3, autons[current]);
 
   lcd::register_btn1_cb(on_center_button);
 
