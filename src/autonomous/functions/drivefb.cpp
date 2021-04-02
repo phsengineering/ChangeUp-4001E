@@ -23,6 +23,10 @@ void driveStraight(double input, double thatDelay) {
 
   double distance = (((input / 8) * 360) + 1) / 1.1;
 
+  double imu1 = thatIMU.get_rotation();
+  double imu2 = thatIMU2.get_rotation();
+  double angleTest = ((imu1 + imu2) / 2);
+
   //double average = (fabs(driveRF.get_position()) + fabs(driveRB.get_position()) + fabs(driveLF.get_position()) + fabs(driveLB.get_position())) / 4;
   double average = leftEncoder.get_value() + rightEncoder.get_value() / 2;
 
@@ -34,21 +38,20 @@ void driveStraight(double input, double thatDelay) {
 
   double kP  =  0.15;
   double kI  =  0;
-  double kD  =  1;
+  double kD  =  1.5;
 
 	double acceptableError = 0.0;
-  double maxNumberOfCorrections = 75;
+  double maxNumberOfCorrections = 30;
 
   double maxSpeed;
 
   if (input < 0) {
-    maxSpeed = 90;
+    maxSpeed = 127;
   } else {
-    maxSpeed = 140;
+    maxSpeed = 127;
   }
 
-
-  double minSpeed = 18;
+  double minSpeed = 30;
 
   double speedCorrection = 1;
 
@@ -76,11 +79,12 @@ void driveStraight(double input, double thatDelay) {
     } else if (fabs(command) < minSpeed) {
       if (correctionAmount < maxNumberOfCorrections) {
         if (command < 0) {
+          minSpeed = 20;
           fbautonBACK(-minSpeed);
+          correctionAmount++;
         } else {
           fbauton(minSpeed);
         }
-        correctionAmount++;
       } else {
         break;
       }
@@ -99,16 +103,21 @@ void driveStraight(double input, double thatDelay) {
     currentError = TARGET - currentValue;
 
      if (displayValues == true) {
-       printf("currentError: %lf", currentError);
+       /*printf("currentError: %lf", currentError);
        printf("   command: %lf", command);
        printf("   position: %lf", average);
-       printf("   target: %lf\n", TARGET);
+       printf("   target: %lf\n", TARGET); */
+    //   printf("   target: %lf\n", middleEncoder.get_value());
      }
 
     timer++;
     delay(10);
   //  odom2();
   }
+  imu1 = thatIMU.get_rotation();
+  imu2 = thatIMU2.get_rotation();
+  double angleEnd = ((imu1 + imu2) / 2) - angleTest;
+  printf("ANGLE BAD: %lf\n", (angleEnd));
 
   correctionAmount = 0;
   stopAllDrive();

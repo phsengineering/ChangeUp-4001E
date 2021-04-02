@@ -20,9 +20,9 @@ double timer = 0;
 ADIAnalogIn sensorY ('X');
 ADIAnalogIn sensorX ('Z');
 
+ADIEncoder leftEncoder ('D', 'C', true);
 ADIEncoder rightEncoder ('G', 'H', false);
 ADIEncoder middleEncoder ('A', 'B', false);
-ADIEncoder leftEncoder ('D', 'C', true);
 
 double valY;
 double valX;
@@ -49,6 +49,16 @@ void fbauton(double y) {
   driveRB.move_voltage(y/1.00);
   driveLF.move_voltage(y/1.00);
   driveLB.move_voltage(y/1.00);
+}
+
+
+void splitFB(double L, double R) {
+  y *= 11000.0 / 127.0;
+
+  driveRF.move_voltage(R);
+  driveRB.move_voltage(R);
+  driveLF.move_voltage(L);
+  driveLB.move_voltage(L);
 }
 
 void fbautonBACK(double y) {

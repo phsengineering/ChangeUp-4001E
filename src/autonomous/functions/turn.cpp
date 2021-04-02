@@ -21,7 +21,7 @@ void turnTest(double degreeInput, double thatDelay) {
 
 		angle = degreeInput * 1;
 
-		bool displayValues = true;
+		bool displayValues = false;
 		bool driveMotors = true;
 
 		double imu1 = thatIMU.get_rotation();
@@ -68,9 +68,9 @@ void turnTest(double degreeInput, double thatDelay) {
 							} else {
                 break;
 							}
-              printf("\033[1;31m[SMALL CORRECTION] \033[0m");
+            //  printf("\033[1;31m[SMALL CORRECTION] \033[0m");
 						} else{
-							printf("\033[1;33m[NORMAL CORRECTION] \033[0m");
+						//	printf("\033[1;33m[NORMAL CORRECTION] \033[0m");
                 if (command < 0) {
                   if (fabs(command*commandOffset) > commandMax) {
                     autonTurn(-commandMax);
@@ -101,10 +101,10 @@ void turnTest(double degreeInput, double thatDelay) {
 				}
     }
 		correctionAmount = 0;
-		printf("\033[1;32m[PID TURN COMPLETE] - \033[0m");
+/*		printf("\033[1;32m[PID TURN COMPLETE] - \033[0m");
 		printf("\033[1;33mThis PID Loop has hopefully turned: \033[0m");
 		printf(" %lf", angle);
-		printf(" degrees\n");
+		printf(" degrees\n"); */
     stopAllDrive();
 
 		delay(thatDelay);
