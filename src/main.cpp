@@ -76,8 +76,9 @@ void opcontrol() {
 		if(mainController.get_digital(DIGITAL_A)) {
 		//	okapiDrive();
 			//autonHandler();
-			driveStraight(24, 0);
+		//	driveStraight(24, 0);
 		//auton3balls(true);
+		turnTest(90, 0);
 		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {

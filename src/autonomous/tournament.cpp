@@ -79,7 +79,6 @@ void autonHandler() {
 
 void auton2balls(bool left) {
   flipout();
-  delay(500);
   driveStraight(37.25, delayBetween); // drive to first ball on edge of tile
 
   intakeHandler(0);
@@ -100,7 +99,10 @@ void auton2balls(bool left) {
 }
 
 void auton3balls(bool left) {
-  /*flipout();
+
+  delayBetween = 100;
+
+  flipout();
   delay(500);
   driveStraight(37.25, delayBetween); // drive to first ball on edge of tile
 
@@ -117,12 +119,9 @@ void auton3balls(bool left) {
   intakeHandler(0);
   rollerHandler(-12000);
   delay(800);
-  rollerHandler(0); */
+  rollerHandler(0);
 
-  //driveStraight(-37.5, delayBetween); //back up from goal
-  chassis->moveDistance(32.8_in);
-  chassis->waitUntilSettled();
-  delay(150);
+  driveStraight(-36.75, delayBetween); //back up from goal
 
   if (left == true) {
     turnTest(135, delayBetween); // turn towards goal
@@ -130,17 +129,12 @@ void auton3balls(bool left) {
     turnTest(-135, delayBetween); // turn towards goal
   }
 
-  intakeHandler(-8500);
-  //driveStraight(24.5, delayBetween);
-  chassis->moveDistance(27.75_in);
-  chassis->waitUntilSettled();
+  intakeHandler(-9000);
+  driveStraight(26.65, delayBetween);
+
 
   intakeHandler(0);
-  //driveStraight(-27.65, delayBetween);
-  chassis->moveDistance(-28.65_in);
-  chassis->waitUntilSettled();
-
-    delay(150);
+  driveStraight(-30, delayBetween);
 
   if (left == true) {
     turnTest(45, delayBetween); // turn towards goal
@@ -149,6 +143,6 @@ void auton3balls(bool left) {
   }
 
   driveFor(900, 110);
-
-  score2(); */
+  score();
+  driveStraight(-20, 0);
 }

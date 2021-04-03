@@ -35,9 +35,9 @@ void driveStraight(double input, double thatDelay) {
 
   ///// slew correction //////
 
-  double skP = 0.04;
+  double skP = 0;
   double skI = 0;
-  double skD = 0.0;
+  double skD = 0;
 
   double slewTarget = 0;
   double slewCurrentValue = 0;
@@ -88,8 +88,8 @@ void driveStraight(double input, double thatDelay) {
     previousError = currentError;
     currentError = TARGET - currentValue;
 
-  //  slewCurrentValue = middleEncoder.get_value();
-    slewCurrentValue = leftEncoder.get_value() - rightEncoder.get_value();
+    slewCurrentValue = middleEncoder.get_value();
+  //  slewCurrentValue = leftEncoder.get_value() - rightEncoder.get_value();
     slewPreviousError = slewCurrentError;
     slewCurrentError = slewTarget - slewCurrentValue;
 
@@ -104,7 +104,7 @@ void driveStraight(double input, double thatDelay) {
        printf("   position: %lf \n", slewCurrentValue);
       // printf("   target: %lf\n", middleEncoder.get_value());
      }
-    delay(10);
+    delay(2);
   }
   correctionAmount = 0;
   stopAllDrive();
