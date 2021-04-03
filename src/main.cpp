@@ -74,9 +74,10 @@ void opcontrol() {
 		}
 
 		if(mainController.get_digital(DIGITAL_A)) {
-			//okapiPath();
-		//	autonHandler();
-		driveStraight(48, 0);
+		//	okapiDrive();
+			//autonHandler();
+			driveStraight(24, 0);
+		//auton3balls(true);
 		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {

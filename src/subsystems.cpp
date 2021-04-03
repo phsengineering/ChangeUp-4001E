@@ -42,18 +42,32 @@ void normalDrive(int y, int x) {
   driveLB.move_voltage(y - x);
 }
 
-void fbauton(double y) {
+void fbauton(double y, double slew) {
   y *= 11000.0 / 127.0;
-
-  driveRF.move_voltage(y/1.00);
-  driveRB.move_voltage(y/1.00);
-  driveLF.move_voltage(y/1.00);
-  driveLB.move_voltage(y/1.00);
+  if (slew < 0) {
+    slew *= -1;
+    if (slew < 1) {
+      slew = 1;
+    }
+    driveRF.move_voltage(y);
+    driveRB.move_voltage(y);
+    driveLF.move_voltage(y/slew);
+    driveLB.move_voltage(y/slew);
+  } else {
+    if (slew < 1) {
+      slew = 1;
+    }
+    driveRF.move_voltage(y/slew);
+    driveRB.move_voltage(y/slew);
+    driveLF.move_voltage(y);
+    driveLB.move_voltage(y);
+  }
 }
 
 
 void splitFB(double L, double R) {
-  y *= 11000.0 / 127.0;
+  L *= 11000.0 / 127.0;
+  R *= 11000.0 / 127.0;
 
   driveRF.move_voltage(R);
   driveRB.move_voltage(R);

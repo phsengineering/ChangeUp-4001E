@@ -27,7 +27,7 @@ void turnTest(double degreeInput, double thatDelay) {
 		double imu1 = thatIMU.get_rotation();
 		double imu2 = thatIMU2.get_rotation();
 
-    double TARGET = ((imu1 + imu2) / 2) + angle * 1.022;
+    double TARGET = ((imu1 + imu2) / 2) + angle * 1.012;
 
     double currentValue = thatIMU.get_rotation();
     double currentError = TARGET - currentValue;
@@ -40,12 +40,12 @@ void turnTest(double degreeInput, double thatDelay) {
     double kD  =  0.2; //20
 
 		double acceptableError = 0.0; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 75; // max number of small corrections allowed to make at the end of turn 200
+		double maxNumberOfCorrections = 100; // max number of small corrections allowed to make at the end of turn 200
 
 		double correctionAmount = 0;
 
 		double commandOffset = 24500;
-		double commandMax = 140;
+		double commandMax = 100;
 		double commandSmallCorrection = 21;
 
     while(fabs(currentError) > acceptableError && correctionAmount < maxNumberOfCorrections) {

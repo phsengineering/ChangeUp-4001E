@@ -18,7 +18,7 @@ void topRoller(double power);
 void autonHandler();
 void driveStraight(double distance, double thatDelay);
 void turnTest(double degreeInput, double thatDelay);
-void fbauton(double y);
+void fbauton(double y, double slew);
 void fbautonBACK(double y);
 void score();
 void flipout();
@@ -29,6 +29,7 @@ void okapiPath();
 void skills();
 void auton2balls(bool left);
 void auton3balls(bool left);
+void splitFB(double L, double R);
 
 extern Motor driveRF;
 extern Motor driveRB;
