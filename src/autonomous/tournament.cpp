@@ -5,38 +5,6 @@
 
 using namespace okapi;
 
-std::shared_ptr<okapi::OdomChassisController> chassis = ChassisControllerBuilder()
-      .withMotors(
-          {4, 5}, // Left motors are 1 & 2 (reversed)
-          {8, 9}    // Right motors are 3 & 4
-        )
-
-        .withGains(
-          { 0.005, 0.005, 0.0012 }, // Distance controller gains
-          { 0.0, 0.0, 0.0 } // Turn controller gains
-        //  { 0.00022, 0.000, 0.00003 }  // Angle controller gains
-        )
-
-        /*
-        .withGains(
-          { 0.00345, 0.0, 0.0001 }, // Distance controller gains
-          { 0.0, 0.0, 0.0 }, // Turn controller gains
-          { 0.00022, 0.0001, 0.00003 }  // Angle controller gains
-        )
-        */
-    //    .withClosedLoopControllerTimeUtil(50, 5, 1000_ms)
-        .withMaxVelocity(350)
-
-        .withSensors(
-          okapi::ADIEncoder{'D', 'C', true}, // left encoder in ADI ports A & B
-          okapi::ADIEncoder{'G', 'H', false},  // right encoder in ADI ports C & D (reversed)
-          okapi::ADIEncoder{'A', 'B', true}  // middle encoder in ADI ports E & F
-        )
-        //{wheel diameter, wheel track, length to middle wheel, middle wheel diameter}.
-        .withDimensions({AbstractMotor::gearset::blue, (5 / 3)}, {{2.75_in, 6.75_in, 4.5_in, 2.75_in}, quadEncoderTPR})
-        .withOdometry()
-        .buildOdometry();
-
 void autonHandler() {
   std::cout << autons[current] << "\n";
   switch (current)
