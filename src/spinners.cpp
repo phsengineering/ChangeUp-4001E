@@ -29,20 +29,6 @@ void score() {
   delay(650);
   rollerT.move_voltage(0);
   rollerB.move_voltage(0);
-
-/*  intakeHandler(-12000);
-  driveFor(700, 75);
-  delay(100);
-
-  rollerT.move_voltage(-12000);
-  rollerB.move_voltage(-12000);
-
-  delay(500);
-  intakeHandler(0);
-  topRoller(0);
-  delay(1200);
-  topRoller(0);
-  midRollers(0); */
 }
 
 void score2() {
