@@ -5,7 +5,7 @@
 
 using namespace pros;
 
-Vision vision_sensor (12);
+Vision vision_sensor (12); 
 
 vision_object_s_t object_arr[4];
 
@@ -88,6 +88,7 @@ void opcontrol() {
 				analogX = 127.0 * std::copysign(std::pow(std::abs(analogX / 127.0), 1.4), analogX); // make turning less sensitive than driving forward or backwards
 		}
 		normalDrive(analogY, analogX);
+		printf("count: %d \n", globalCount);
 
 		if (globalCount == 1000) {
 			if (driveRF.is_over_temp() || driveRB.is_over_temp() || driveLF.is_over_temp() || driveLB.is_over_temp()) {

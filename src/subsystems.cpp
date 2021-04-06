@@ -51,26 +51,6 @@ void fbauton(double y, double slew) {
     driveLB.move_voltage(y + slew);
 }
 
-
-void splitFB(double L, double R) {
-  L *= 11000.0 / 127.0;
-  R *= 11000.0 / 127.0;
-
-  driveRF.move_voltage(R);
-  driveRB.move_voltage(R);
-  driveLF.move_voltage(L);
-  driveLB.move_voltage(L);
-}
-
-void fbautonBACK(double y) {
-  y *= 11000.0 / 127.0;
-
-  driveRF.move_voltage(y/1.00);
-  driveRB.move_voltage(y/1.00);
-  driveLF.move_voltage(y/1.00);
-  driveLB.move_voltage(y/1.00);
-}
-
 void autonTurn(double y) {
   y *= 11000.0 / 127.0;
 
@@ -158,7 +138,6 @@ void on_center_button() {
       current = 0;
     }
   	lcd::set_text(3, autons[current]); // replace with pros lcd print // replace with pros lcd print
-    mainController.set_text(0, 0, autons[current]);
 }
 
 void init() {
