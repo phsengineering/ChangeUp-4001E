@@ -134,7 +134,7 @@ void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
     current++;
-    if (current == 6) {
+    if (current == 11) {
       current = 0;
     }
   	lcd::set_text(3, autons[current]); // replace with pros lcd print // replace with pros lcd print

@@ -36,7 +36,7 @@ void turnTest(double degreeInput, double thatDelay) {
 
     double kP  =  18; //100
     double kI  =  0.0;
-    double kD  =  86.0; //20
+    double kD  =  85.0; //20
 
 		/*    double kP  =  0.03; //100
 		    double kI  =  0.0;
