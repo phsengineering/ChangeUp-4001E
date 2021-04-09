@@ -20,10 +20,10 @@ void driveStraight(double input, double thatDelay) {
 
   double kP  =  0.11;
   double kI  =  0;
-  double kD  =  1.5;
+  double kD  =  1.3;
 
   double acceptableError = 0.0;
-  double maxNumberOfCorrections = 30;
+  double maxNumberOfCorrections = 40;
 
   double maxSpeed = 110;
   double minSpeed = 25;
@@ -83,7 +83,7 @@ void driveStraight(double input, double thatDelay) {
       }
     }
 
-    average = (leftEncoder.get_value() + rightEncoder.get_value()) / 2;
+    average = rightEncoder.get_value();
     currentValue = average;
     previousError = currentError;
     currentError = TARGET - currentValue;
@@ -94,14 +94,14 @@ void driveStraight(double input, double thatDelay) {
     slewCurrentError = slewTarget - slewCurrentValue;
 
      if (displayValues == true) {
-    /*   printf("currentError: %lf", currentError);
+       printf("currentError: %lf", currentError);
        printf("   command: %lf", command);
        printf("   position: %lf", average);
-       printf("   target: %lf\n", TARGET); */
-
+       printf("   target: %lf\n", TARGET);
+/*
        printf("slew error: %lf", slewCurrentError);
        printf("   command: %lf", slewCommand);
-       printf("   position: %lf \n", slewCurrentValue);
+       printf("   position: %lf \n", slewCurrentValue); */
       // printf("   target: %lf\n", middleEncoder.get_value());
      }
     delay(2);

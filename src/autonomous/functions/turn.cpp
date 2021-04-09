@@ -36,19 +36,19 @@ void turnTest(double degreeInput, double thatDelay) {
 
     double kP  =  18; //100
     double kI  =  0.0;
-    double kD  =  85.0; //20
+    double kD  =  86.0; //20
 
 		/*    double kP  =  0.03; //100
 		    double kI  =  0.0;
 		    double kD  =  0.2; //20*/
 
 		double acceptableError = 0.0; // how close the encoder values have to be to the desired amount to stop the while loop
-		double maxNumberOfCorrections = 50; // max number of small corrections allowed to make at the end of turn 200
+		double maxNumberOfCorrections = 40; // max number of small corrections allowed to make at the end of turn 200
 
 		double correctionAmount = 0;
 
 		double commandOffset = 1;
-		double commandMax = 105;
+		double commandMax = 100;
 		double commandSmallCorrection = 17;
 
     while(fabs(currentError) > acceptableError) {

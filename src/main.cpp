@@ -5,7 +5,7 @@
 
 using namespace pros;
 
-Vision vision_sensor (12); 
+Vision vision_sensor (12);
 
 vision_object_s_t object_arr[4];
 
@@ -74,7 +74,7 @@ void opcontrol() {
 		}
 
 		if(mainController.get_digital(DIGITAL_A)) {
-			//autonHandler();
+		//	autonHandler();
 			auton3balls(true);
 		}
 
