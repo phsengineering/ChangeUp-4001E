@@ -10,14 +10,19 @@ double delayBetween = 150;
 void skills() {
   flipout();
   delay(500);
-  intakeHandler(-12000);
-  driveStraight(37.25, delayBetween); // drive to first ball on edge of tile
+  driveStraight(36, delayBetween); // drive to first ball on edge of tile
 
   intakeHandler(0);
-  turnTest(76.75, delayBetween); // turn towards goal
 
-  driveFor(800, 75);
-  score(); //[A1]
+  turnTest(77.40, delayBetween); // turn towards goal
+
+  intakeHandler(-12000);
+  driveFor(1500, 65);
+  intakeHandler(0);
+  rollerHandler(-12000);
+  delay(800);
+  intakeHandler(12000);
+  rollerHandler(0);
   ///////////////////////////////////////////////////////////////////////
 
   driveStraight(-8, delayBetween+50); //back up from goal

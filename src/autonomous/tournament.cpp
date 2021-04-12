@@ -46,24 +46,29 @@ void autonHandler() {
 }
 
 void auton2balls(bool left) {
+  delayBetween = 100;
+
   flipout();
-  driveStraight(37.25, delayBetween); // drive to first ball on edge of tile
+  delay(500);
+  driveStraight(36, delayBetween); // drive to first ball on edge of tile
 
   intakeHandler(0);
 
   if (left == true) {
-    turnTest(-76.75, delayBetween); // turn towards goal
+    turnTest(-77.40, delayBetween); // turn towards goal
   } else {
-    turnTest(76.75, delayBetween); // turn towards goal
+    turnTest(77.40, delayBetween); // turn towards goal
   }
 
   intakeHandler(-12000);
-  driveFor(800, 75);
+  driveFor(1500, 65);
   intakeHandler(0);
   rollerHandler(-12000);
   delay(800);
+  intakeHandler(12000);
   rollerHandler(0);
-  driveStraight(-15, delayBetween+50); //back up from goal
+
+  driveStraight(-32.5, delayBetween); //back up from goal
 }
 
 void auton3balls(bool left) {

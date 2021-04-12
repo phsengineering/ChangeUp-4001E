@@ -33,10 +33,10 @@ void opcontrol() {
 			} else {
 				visionColor = 2;
 			}
-			if (object_arr[0].height >= 80 && object_arr[0].width >= 80 && object_arr[0].signature == visionColor && visionCount <= 750) {
-				delay(50);
-				rollerT.move_voltage(12000);
-				rollerB.move_voltage(12000);
+			if (object_arr[0].height >= 140 && object_arr[0].width >= 140 && object_arr[0].signature == visionColor && visionCount <= 650) {
+			// 	delay(50);
+				rollerT.move_voltage(-12000);
+				rollerB.move_voltage(-12000);
 				visionCount++;
 			} else {
 			  rollerT.move_voltage(-12000);
@@ -74,12 +74,12 @@ void opcontrol() {
 		}
 
 		if(mainController.get_digital(DIGITAL_A)) {
-		//	autonHandler();
-			auton3balls(true);
+			autonHandler();
+		//	auton3balls(true);
 		}
 
 		if(mainController.get_digital(DIGITAL_DOWN)) {
-		  flipout();
+		 // flipout();
 		}
 
 		int analogY = mainController.get_analog(E_CONTROLLER_ANALOG_LEFT_Y); // get Y value from left analog stick

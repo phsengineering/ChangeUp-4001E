@@ -19,7 +19,7 @@ void intakeHandler(double power) {
 
 void flipout() {
   intakeL.move_voltage(-12000);
-  delay(250);
+  delay(4000);
   intakeL.move_voltage(0);
 }
 
